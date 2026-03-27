@@ -1,0 +1,8 @@
+
+# IDE generated
+.vs/
+**/*.vcxproj.user
+
+# Binaries
+**/Bin/
+**/Intermediate/
