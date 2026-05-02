@@ -1,7 +1,6 @@
 <Solution>
   <Configurations>
     <Platform Name="x64" />
-    <Platform Name="x86" />
   </Configurations>
-  <Project Path="Sandbox/Sandbox.vcxproj" />
+  <Project Path="Sandbox/Sandbox.vcxproj" Id="332816a5-b6b1-488e-a83a-56aba6a9bd5a" />
 </Solution>
