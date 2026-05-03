@@ -1,5 +1,6 @@
 #include <print>
 #include <array>
+#include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -50,13 +51,6 @@ int main()
    glClearColor( 0.07f, 0.13f, 0.17f, 1.f );
    glClear( GL_COLOR_BUFFER_BIT );
 
-   constexpr std::array<GLfloat, 9uz> aVerticies =
-   {
-      -0.5f,  -0.5 * 1.71f / 3,      0,
-       0.5f,  -0.5 * 1.71f / 3.f,    0,
-       0.f,    0.5 * 1.71f * 2 / 3,  0,
-   };
-
    // vertex shader
    const GLuint vs = glCreateShader( GL_VERTEX_SHADER );
    glShaderSource( vs, 1, &k_sVertexShaderSource, nullptr ); // 1 screen for the shader
@@ -77,19 +71,50 @@ int main()
    glDeleteShader( vs );
    glDeleteShader( fs );
 
+   const std::array<GLfloat, 18> aVerticies =
+   {
+      -0.5f,        -0.5f * std::sqrtf( 3 ) / 3,      0, // left
+       0.5f,        -0.5f * std::sqrtf( 3 ) / 3,      0, // right
+       0.f,          0.5f * std::sqrtf( 3 ) * 2 / 3,  0, // top
+       -0.5f / 2,    0.5f * std::sqrtf( 3 ) / 6,      0, // left middle
+       0.5f / 2,     0.5f * std::sqrtf( 3 ) / 6,      0, // right middle
+       0.f,         -0.5f * std::sqrtf( 3 ) / 3,      0, // bottom middle
+   };
+   
+   /*
+   *          2
+   *         / \
+   *        /   \
+   *       3-----5
+   *      / \   / \
+   *     /   \ /   \
+   *    0-----4-----1
+   */
+
+   constexpr std::array<GLuint, 9> aIndicies =
+   {
+      0, 3, 5,
+      3, 2, 4,
+      5, 4, 1,
+   };
+
    // create buffers for verticies
    constexpr int iObjectsAmount = 1;
-   GLuint vao, vbo;
+   GLuint vao, vbo, ebo;
    glGenVertexArrays( iObjectsAmount, &vao );
    glGenBuffers( iObjectsAmount, &vbo );
+   glGenBuffers( iObjectsAmount, &ebo );
 
    glBindVertexArray( vao );
    glBindBuffer( GL_ARRAY_BUFFER, vbo );
    glBufferData( GL_ARRAY_BUFFER, sizeof( aVerticies ), aVerticies.data(), GL_STATIC_DRAW );
+   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, ebo );
+   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( aIndicies ), aIndicies.data(), GL_STATIC_DRAW );
    glVertexAttribPointer( 0, k_iDimension, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), (void *)0 );
    glEnableVertexAttribArray( 0 );
    glBindBuffer( GL_ARRAY_BUFFER, 0 );
    glBindVertexArray( 0 );
+   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
 
    // swap colored chain buffer with current one
    glfwSwapBuffers( window );
@@ -101,7 +126,7 @@ int main()
       glClear( GL_COLOR_BUFFER_BIT );
       glUseProgram( program );
       glBindVertexArray( vao );
-      glDrawArrays( GL_TRIANGLES, 0, 3 );
+      glDrawElements( GL_TRIANGLES, static_cast<int>( aIndicies.size() ), GL_UNSIGNED_INT, 0 );
       glfwSwapBuffers( window );
       glfwPollEvents();
    }
@@ -109,6 +134,7 @@ int main()
    // clear
    glDeleteVertexArrays( 1, &vao );
    glDeleteBuffers( 1, &vbo );
+   glDeleteBuffers( 1, &ebo );
    glDeleteProgram( program );
    glfwDestroyWindow( window );
    glfwTerminate();
