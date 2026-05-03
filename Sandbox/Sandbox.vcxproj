@@ -53,6 +53,9 @@
     <ClCompile />
     <Link />
     <ClCompile />
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SourceDir)Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile />
@@ -60,9 +63,23 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile />
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SourceDir)Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Private\Shader.cpp" />
+    <ClCompile Include="Source\Public\VAO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\default.frag" />
+    <None Include="Resources\Shaders\default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Public\Buffer.hpp" />
+    <ClInclude Include="Source\Public\Shader.hpp" />
+    <ClInclude Include="Source\Public\VAO.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
