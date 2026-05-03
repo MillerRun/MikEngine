@@ -1,4 +1,5 @@
 #include <print>
+#include <array>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -49,39 +50,42 @@ int main()
    glClearColor( 0.07f, 0.13f, 0.17f, 1.f );
    glClear( GL_COLOR_BUFFER_BIT );
 
-   constexpr GLfloat aVerticies[] =
+   constexpr std::array<GLfloat, 9uz> aVerticies =
    {
       -0.5f,  -0.5 * 1.71f / 3,      0,
        0.5f,  -0.5 * 1.71f / 3.f,    0,
        0.f,    0.5 * 1.71f * 2 / 3,  0,
    };
-   constexpr int iVericiesArrayLength = static_cast<int>( sizeof( aVerticies ) / sizeof( aVerticies[0] ) );
-   //constexpr int iVerticiesAmount = iVericiesArrayLength / k_iDimension;
-   static_assert( iVericiesArrayLength >= k_iDimension );
-   static_assert( iVericiesArrayLength % k_iDimension == 0 );
 
+   // vertex shader
    const GLuint vs = glCreateShader( GL_VERTEX_SHADER );
    glShaderSource( vs, 1, &k_sVertexShaderSource, nullptr ); // 1 screen for the shader
    glCompileShader( vs );
 
+   // fragment shader
    const GLuint fs = glCreateShader( GL_FRAGMENT_SHADER );
    glShaderSource( fs, 1, &k_sFragmentShaderSource, nullptr );
    glCompileShader( fs );
 
+   // create program
    const GLuint program = glCreateProgram();
-   glAttachShader( program, vs );
-   glAttachShader( program, fs );
-   glLinkProgram( program );
+   glAttachShader( program, vs ); // attach vertex shader
+   glAttachShader( program, fs ); // attach fragment shader
+   glLinkProgram( program ); // assemble program
+
+   // delete shaders, because program contains them already
    glDeleteShader( vs );
    glDeleteShader( fs );
 
+   // create buffers for verticies
    constexpr int iObjectsAmount = 1;
    GLuint vao, vbo;
    glGenVertexArrays( iObjectsAmount, &vao );
    glGenBuffers( iObjectsAmount, &vbo );
+
    glBindVertexArray( vao );
    glBindBuffer( GL_ARRAY_BUFFER, vbo );
-   glBufferData( GL_ARRAY_BUFFER, sizeof( aVerticies ), aVerticies, GL_STATIC_DRAW );
+   glBufferData( GL_ARRAY_BUFFER, sizeof( aVerticies ), aVerticies.data(), GL_STATIC_DRAW );
    glVertexAttribPointer( 0, k_iDimension, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), (void *)0 );
    glEnableVertexAttribArray( 0 );
    glBindBuffer( GL_ARRAY_BUFFER, 0 );
