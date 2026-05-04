@@ -42,20 +42,21 @@ int main()
    *          2
    *         / \
    *        /   \
-   *       3-----5
+   *       3-----4
    *      / \   / \
    *     /   \ /   \
-   *    0-----4-----1
+   *    0-----5-----1
    */
 
    const std::array aVerticies =
    {
-      -0.5f,        -0.5f * std::sqrtf( 3 ) / 3.f,          0.f, // left
-       0.5f,        -0.5f * std::sqrtf( 3 ) / 3.f,          0.f, // right
-       0.f,          0.5f * std::sqrtf( 3 ) * 2.f / 3.f,    0.f, // top
-      -0.5f / 2.f,   0.5f * std::sqrtf( 3 ) / 6.f,          0.f, // left middle
-       0.5f / 2.f,   0.5f * std::sqrtf( 3 ) / 6.f,          0.f, // right middle
-       0.f,         -0.5f * std::sqrtf( 3 ) / 3.f,          0.f, // bottom middle
+      // <--------------------POSITION-------------------->       <----COLOR RGB--->
+      -0.5f,       -0.5f * std::sqrtf( 3 ) / 3.f,       0.f,      0.8f, 0.3f,  0.02f, // 0
+       0.5f,       -0.5f * std::sqrtf( 3 ) / 3.f,       0.f,      0.8f, 0.3f,  0.02f, // 1
+       0.f,         0.5f * std::sqrtf( 3 ) * 2.f / 3.f, 0.f,      1.0f, 0.6f,  0.32f, // 2
+      -0.5f / 2.f,  0.5f * std::sqrtf( 3 ) / 6.f,       0.f,      0.9f, 0.45f, 0.17f, // 3
+       0.5f / 2.f,  0.5f * std::sqrtf( 3 ) / 6.f,       0.f,      0.9f, 0.45f, 0.17f, // 4
+       0.f,        -0.5f * std::sqrtf( 3 ) / 3.f,       0.f,      0.8f, 0.3f,  0.02f, // 5
    };
 
    constexpr std::array aIndicies =
@@ -73,7 +74,8 @@ int main()
    Buffer<EBufferType::VERTEX, GLfloat> vbo{ aVerticies.data(), sizeof( aVerticies ) };
    Buffer<EBufferType::INDEX, GLuint> ebo{ aIndicies.data(), sizeof( aIndicies ) };
 
-   vao.LinkVBO( vbo, 0 );
+   vao.LinkAttribute( vbo, 0, 3, GL_FLOAT, 6 * sizeof( GLfloat ), (void *)0 );
+   vao.LinkAttribute( vbo, 1, 3, GL_FLOAT, 6 * sizeof( GLfloat ), (void *)( 3 * sizeof( GLfloat ) ) );
    vao.Unbind();
    vbo.Unbind();
    ebo.Unbind();
