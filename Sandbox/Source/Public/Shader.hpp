@@ -6,10 +6,13 @@
 class Shader
 {
 public:
-   explicit Shader( std::string_view a_sShaderName );
-   void Activate() const;
-   void Deactivate() const;
+   explicit Shader( const std::string_view a_sShaderName );
+   void Activate();
+   void Deactivate();
    [[nodiscard]] GLuint GetID() const;
+
+private:
+   void CheckForErrors( const GLuint a_iShaderID, const std::string_view a_sShaderType ) const;
 
 private:
    GLuint m_iID = 0;

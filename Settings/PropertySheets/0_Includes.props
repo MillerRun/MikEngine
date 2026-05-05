@@ -5,7 +5,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(LibraryDir)GLFW\include;$(LibraryDir)Glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(LibraryDir)GLFW\include;$(LibraryDir)Glad\include;$(LibraryDir)stb\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(LibraryDir)GLFW\Bin\$(OutputConfigName)\;$(LibraryDir)Glad\Bin\$(OutputConfigName)\</AdditionalLibraryDirectories>

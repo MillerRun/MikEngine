@@ -13,14 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Shaders">
-      <UniqueIdentifier>{65479dc0-4be8-4abd-9e8d-0fef62f85d38}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Public">
       <UniqueIdentifier>{708c9648-f958-497c-9422-28a5882afcdd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Private">
       <UniqueIdentifier>{e806a6b3-02ca-4a0c-a1ff-11f88b8918ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{dea661c0-a35d-4fdc-ae33-37d1f5ed104a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,17 +30,15 @@
     <ClCompile Include="Source\Private\Shader.cpp">
       <Filter>Source Files\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Public\VAO.cpp">
+    <ClCompile Include="Source\Private\Texture.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Private\VAO.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Shaders\default.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="Resources\Shaders\default.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\Shader.hpp">
@@ -52,5 +50,16 @@
     <ClInclude Include="Source\Public\VAO.hpp">
       <Filter>Header Files\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Public\Texture.hpp">
+      <Filter>Header Files\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Shaders\default.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\default.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
