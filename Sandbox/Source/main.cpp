@@ -4,6 +4,9 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.hpp"
 #include "Buffer.hpp"
@@ -41,17 +44,22 @@ int main()
 
    constexpr std::array aVerticies =
    {
-      // <--POSITION-->       <-COLOR RGB-->     <TEXTURE>
-      -0.5f, -0.5f, 0.f,      1.f, 0.f,  0.f,    0.f,  0.f,    // 0
-      -0.5f,  0.5f, 0.f,      0.f, 1.f,  0.f,    0.f,  1.f,    // 1
-       0.5f,  0.5f, 0.f,      0.f, 0.f,  1.f,    1.f,  1.f,    // 2
-       0.5f, -0.5f, 0.f,      1.f, 1.0f, 1.f,    1.f,  0.f,    // 3
+      // <---POSITION--->       <----COLOR RGB---->     <-TEXTURE->
+      -0.5f,  0.0f,  0.5f,      0.83f, 0.70f, 0.44f,    1.0f, 0.0f,   // 0
+      -0.5f,  0.0f, -0.5f,      0.83f, 0.70f, 0.44f,    0.0f, 1.0f,   // 1
+       0.5f,  0.0f, -0.5f,      0.83f, 0.70f, 0.44f,    1.0f, 0.0f,   // 2
+       0.5f,  0.0f,  0.5f,      0.83f, 0.70f, 0.44f,    1.0f, 1.0f,   // 3
+       0.0f,  0.8f,  0.0f,      0.92f, 0.86f, 0.76f,    0.5f, 0.5f    // 4
    };
 
    constexpr std::array aIndicies =
    {
-      0u, 2u, 1u,
-      0u, 3u, 2u,
+      0u, 1u, 2u,
+      0u, 2u, 3u,
+      0u, 1u, 4u,
+      1u, 2u, 4u,
+      2u, 3u, 4u,
+      3u, 0u, 4u,
    };
 
    Shader shader{ "default" };
@@ -74,12 +82,42 @@ int main()
    Texture tex{ "kotya.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE };
    tex.TextureUnit( shader, "u_Tex0", 0 );
 
+   float fRotation = 0.f;
+   double dPrevTime = glfwGetTime();
+
+   glEnable( GL_DEPTH_TEST );
+
    // main loop
    while( !glfwWindowShouldClose( window ) )
    {
       glClearColor( 0.07f, 0.13f, 0.17f, 1.f );
-      glClear( GL_COLOR_BUFFER_BIT );
+      glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
       shader.Activate();
+
+      double dCurrTime = glfwGetTime();
+      if( dCurrTime - dPrevTime >= 1.0 / 60.0 )
+      {
+         fRotation += 0.5f;
+         dPrevTime = dCurrTime;
+      }
+
+      glm::mat4 m4Model = glm::mat4( 1.f );
+      glm::mat4 m4View = glm::mat4( 1.f );
+      glm::mat4 m4Proj = glm::mat4( 1.f );
+
+      m4Model = glm::rotate( m4Model, glm::radians( fRotation ), glm::vec3( 0, 1, 0 ) );
+      m4View = glm::translate( m4View, glm::vec3( 0.f, -0.5, -2.f ) );
+      m4Proj = glm::perspective( glm::radians( 45.f ), static_cast<float>( k_iWindowWidth ) / k_iWindowHeight, 0.1f, 100.f );
+
+      GLint uModel = glGetUniformLocation( shader.GetID(), "u_m4Model" );
+      glUniformMatrix4fv( uModel, 1, GL_FALSE, glm::value_ptr( m4Model ) );
+
+      GLint uView = glGetUniformLocation( shader.GetID(), "u_m4View" );
+      glUniformMatrix4fv( uView, 1, GL_FALSE, glm::value_ptr( m4View ) );
+
+      GLint uProj = glGetUniformLocation( shader.GetID(), "u_m4Proj" );
+      glUniformMatrix4fv( uProj, 1, GL_FALSE, glm::value_ptr( m4Proj ) );
+
       glUniform1f( scaleUniform, 1.5f );
       tex.Bind();
       vao.Bind();

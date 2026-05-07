@@ -5,7 +5,7 @@ VAO::VAO()
    glGenVertexArrays( 1, &m_iID );
 }
 
-void VAO::LinkAttribute( Buffer<EBufferType::VERTEX, GLfloat> a_VBO
+void VAO::LinkAttribute( Buffer<EBufferType::VERTEX, GLfloat>& a_VBO
    , GLuint a_iLayout
    , GLuint a_iSize
    , GLenum a_eType

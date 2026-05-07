@@ -8,7 +8,7 @@ class VAO
 public:
    VAO();
 
-   void LinkAttribute( Buffer<EBufferType::VERTEX, GLfloat> a_VBO
+   void LinkAttribute( Buffer<EBufferType::VERTEX, GLfloat>& a_VBO
       , GLuint a_iLayout
       , GLuint a_iSize
       , GLenum a_eType
