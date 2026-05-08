@@ -39,6 +39,9 @@
     <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Private\Camera.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\Shader.hpp">
@@ -51,6 +54,9 @@
       <Filter>Header Files\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Public\Texture.hpp">
+      <Filter>Header Files\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Camera.hpp">
       <Filter>Header Files\Public</Filter>
     </ClInclude>
   </ItemGroup>

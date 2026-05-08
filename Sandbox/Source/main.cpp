@@ -1,23 +1,19 @@
 #include <print>
 #include <array>
-#include <cmath>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.hpp"
 #include "Buffer.hpp"
 #include "VAO.hpp"
 #include "Texture.hpp"
+#include "Camera.hpp"
 
 namespace
 {
    constexpr int k_iWindowWidth = 800;
    constexpr int k_iWindowHeight = 800;
-   constexpr int k_iDimension = 3;
 }
 
 int main()
@@ -30,7 +26,7 @@ int main()
 
    // create and set window
    GLFWwindow * const window = glfwCreateWindow( k_iWindowWidth, k_iWindowHeight, "My window", nullptr, nullptr );
-   if( !window )
+   if( not window )
    {
       std::println( "Failed to create window" );
       glfwTerminate();
@@ -77,15 +73,12 @@ int main()
    vbo.Unbind();
    ebo.Unbind();
 
-   GLuint scaleUniform = glGetUniformLocation( shader.GetID(), "u_fScale" );
-    
    Texture tex{ "kotya.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE };
    tex.TextureUnit( shader, "u_Tex0", 0 );
 
-   float fRotation = 0.f;
-   double dPrevTime = glfwGetTime();
-
    glEnable( GL_DEPTH_TEST );
+
+   Camera hCamera( k_iWindowWidth, k_iWindowHeight, glm::vec3( 0.f, 0.f, 2.f ) );
 
    // main loop
    while( !glfwWindowShouldClose( window ) )
@@ -94,31 +87,9 @@ int main()
       glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
       shader.Activate();
 
-      double dCurrTime = glfwGetTime();
-      if( dCurrTime - dPrevTime >= 1.0 / 60.0 )
-      {
-         fRotation += 0.5f;
-         dPrevTime = dCurrTime;
-      }
+      hCamera.Inputs( window );
+      hCamera.Matrix( 45.f, 0.001f, 100.f, shader, "u_m4Camera" );
 
-      glm::mat4 m4Model = glm::mat4( 1.f );
-      glm::mat4 m4View = glm::mat4( 1.f );
-      glm::mat4 m4Proj = glm::mat4( 1.f );
-
-      m4Model = glm::rotate( m4Model, glm::radians( fRotation ), glm::vec3( 0, 1, 0 ) );
-      m4View = glm::translate( m4View, glm::vec3( 0.f, -0.5, -2.f ) );
-      m4Proj = glm::perspective( glm::radians( 45.f ), static_cast<float>( k_iWindowWidth ) / k_iWindowHeight, 0.1f, 100.f );
-
-      GLint uModel = glGetUniformLocation( shader.GetID(), "u_m4Model" );
-      glUniformMatrix4fv( uModel, 1, GL_FALSE, glm::value_ptr( m4Model ) );
-
-      GLint uView = glGetUniformLocation( shader.GetID(), "u_m4View" );
-      glUniformMatrix4fv( uView, 1, GL_FALSE, glm::value_ptr( m4View ) );
-
-      GLint uProj = glGetUniformLocation( shader.GetID(), "u_m4Proj" );
-      glUniformMatrix4fv( uProj, 1, GL_FALSE, glm::value_ptr( m4Proj ) );
-
-      glUniform1f( scaleUniform, 1.5f );
       tex.Bind();
       vao.Bind();
       glDrawElements( GL_TRIANGLES, static_cast<int>( aIndicies.size() ), GL_UNSIGNED_INT, 0 );

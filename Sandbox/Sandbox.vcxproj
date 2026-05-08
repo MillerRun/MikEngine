@@ -70,12 +70,14 @@
   <ItemGroup>
     <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Private\Camera.cpp" />
     <ClCompile Include="Source\Private\Shader.cpp" />
     <ClCompile Include="Source\Private\Texture.cpp" />
     <ClCompile Include="Source\Private\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\Buffer.hpp" />
+    <ClInclude Include="Source\Public\Camera.hpp" />
     <ClInclude Include="Source\Public\Shader.hpp" />
     <ClInclude Include="Source\Public\Texture.hpp" />
     <ClInclude Include="Source\Public\VAO.hpp" />
