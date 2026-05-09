@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Common.hpp"
+
 #include <glad/glad.h> 
 
 enum class EBufferType : int
@@ -14,9 +16,9 @@ class Buffer
 public:
    explicit Buffer( const TDataType *a_pData, GLsizeiptr a_iDataSize, bool a_bDynamic = false )
    {
-      glGenBuffers( 1, &m_iID );
-      glBindBuffer( GetBufferTarget(), m_iID );
-      glBufferData( GetBufferTarget(), a_iDataSize, a_pData, a_bDynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW );
+      GLCHECK( glGenBuffers( 1, &m_iID ) );
+      GLCHECK( glBindBuffer( GetBufferTarget(), m_iID ) );
+      GLCHECK( glBufferData( GetBufferTarget(), a_iDataSize, a_pData, a_bDynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW ) );
    }
 
    void Bind();
@@ -43,19 +45,19 @@ private:
 template<EBufferType BufferType, typename TDataType>
 void Buffer<BufferType, TDataType>::Bind()
 {
-   glBindBuffer( GetBufferTarget(), m_iID );
+   GLCHECK( glBindBuffer( GetBufferTarget(), m_iID ) );
 }
 
 template<EBufferType BufferType, typename TDataType>
 void Buffer<BufferType, TDataType>::Unbind()
 {
-   glBindBuffer( GetBufferTarget(), 0 );
+   GLCHECK( glBindBuffer( GetBufferTarget(), 0 ) );
 }
 
 template<EBufferType BufferType, typename TDataType>
 void Buffer<BufferType, TDataType>::Delete()
 {
-   glDeleteBuffers( 1, &m_iID );
+   GLCHECK( glDeleteBuffers( 1, &m_iID ) );
 }
 
 template<EBufferType BufferType, typename TDataType>
@@ -63,3 +65,6 @@ GLuint Buffer<BufferType, TDataType>::GetID() const
 {
    return m_iID;
 }
+
+using VertexBuffer = Buffer<EBufferType::VERTEX, GLfloat>;
+using IndexBuffer = Buffer<EBufferType::INDEX, GLuint>;

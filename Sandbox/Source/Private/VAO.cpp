@@ -1,11 +1,13 @@
 #include "VAO.hpp"
 
+#include "Common.hpp"
+
 VAO::VAO()
 {
-   glGenVertexArrays( 1, &m_iID );
+   GLCHECK( glGenVertexArrays( 1, &m_iID ) );
 }
 
-void VAO::LinkAttribute( Buffer<EBufferType::VERTEX, GLfloat>& a_VBO
+void VAO::LinkAttribute( VertexBuffer& a_VBO
    , GLuint a_iLayout
    , GLuint a_iSize
    , GLenum a_eType
@@ -13,22 +15,22 @@ void VAO::LinkAttribute( Buffer<EBufferType::VERTEX, GLfloat>& a_VBO
    , void *a_pOffset )
 {
    a_VBO.Bind();
-   glVertexAttribPointer( a_iLayout, a_iSize, a_eType, GL_FALSE, a_iStride, a_pOffset );
-   glEnableVertexAttribArray( a_iLayout );
+   GLCHECK( glVertexAttribPointer( a_iLayout, a_iSize, a_eType, GL_FALSE, a_iStride, a_pOffset ) );
+   GLCHECK( glEnableVertexAttribArray( a_iLayout ) );
    a_VBO.Unbind();
 }
 
 void VAO::Bind()
 {
-   glBindVertexArray( m_iID );
+   GLCHECK( glBindVertexArray( m_iID ) );
 }
 
 void VAO::Unbind()
 {
-   glBindVertexArray( 0 );
+   GLCHECK( glBindVertexArray( 0 ) );
 }
 
 void VAO::Delete()
 {
-   glDeleteVertexArrays( 1, &m_iID );
+   GLCHECK( glDeleteVertexArrays( 1, &m_iID ) );
 }

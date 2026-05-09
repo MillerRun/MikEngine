@@ -1,5 +1,6 @@
 #include "Camera.hpp"
 
+#include "Common.hpp"
 #include "Shader.hpp"
 
 #include <GLFW/glfw3.h>
@@ -21,12 +22,16 @@ Camera::Camera( const int a_iWidth, const int a_iHeight, const glm::vec3 a_v3Pos
 {
 }
 
-void Camera::Matrix( const float a_fFovAngle, const float a_fNearPlane, const float a_fFarPlane, const Shader &a_Shader, const char *const a_sUniform )
+void Camera::Matrix( const Shader &a_Shader, const char *const a_sUniform )
+{
+   GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniform ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
+}
+
+void Camera::UpdateMatrix( const float a_fFovAngle, const float a_fNearPlane, const float a_fFarPlane )
 {
    const glm::mat4 v4View = glm::lookAt( m_v3Position, m_v3Position + m_v3Direction, k_v3UpDirection );
    const glm::mat4 v4Proj = glm::perspective( glm::radians( a_fFovAngle ), static_cast<float>( m_iWidth ) / m_iHeight, a_fNearPlane, a_fFarPlane );
-
-   glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniform ), 1, GL_FALSE, glm::value_ptr( v4Proj * v4View ) );
+   m_m4Camera = v4Proj * v4View;
 }
 
 void Camera::Inputs( GLFWwindow * const a_pWindow )
@@ -97,4 +102,9 @@ void Camera::Inputs( GLFWwindow * const a_pWindow )
       glfwSetInputMode( a_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN );
       m_bFirstClick = true;
    }
+}
+
+glm::vec3 Camera::GetPosition() const
+{
+    return m_v3Position;
 }

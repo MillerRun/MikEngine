@@ -1,5 +1,7 @@
 #include "Shader.hpp"
 
+#include "Common.hpp"
+
 #include <fstream>
 #include <string>
 #include <print>
@@ -35,37 +37,37 @@ Shader::Shader( const std::string_view a_sShaderName )
    // vertex shader
    const GLuint vs = glCreateShader( GL_VERTEX_SHADER );
    const char *sVertexSource = sVertexShaderContent.c_str();
-   glShaderSource( vs, 1, &sVertexSource, nullptr ); // 1 screen for the shader
-   glCompileShader( vs );
+   GLCHECK( glShaderSource( vs, 1, &sVertexSource, nullptr ) ); // 1 screen for the shader
+   GLCHECK( glCompileShader( vs ) );
    CheckForErrors( vs, "VERTEX" );
 
    // fragment shader
    const GLuint fs = glCreateShader( GL_FRAGMENT_SHADER );
    const char *sFragmentSource = sFragmentShaderContent.c_str();
-   glShaderSource( fs, 1, &sFragmentSource, nullptr );
-   glCompileShader( fs );
+   GLCHECK( glShaderSource( fs, 1, &sFragmentSource, nullptr ) );
+   GLCHECK( glCompileShader( fs ) );
    CheckForErrors( fs, "FRAGMENT" );
 
    // create program
    m_iID = glCreateProgram();
-   glAttachShader( m_iID, vs ); // attach vertex shader
-   glAttachShader( m_iID, fs ); // attach fragment shader
-   glLinkProgram( m_iID ); // assemble program
+   GLCHECK( glAttachShader( m_iID, vs ) ); // attach vertex shader
+   GLCHECK( glAttachShader( m_iID, fs ) ); // attach fragment shader
+   GLCHECK( glLinkProgram( m_iID ) ); // assemble program
    CheckForErrors( m_iID, "PROGRAM" );
 
    // delete shaders, because program contains them already
-   glDeleteShader( vs );
-   glDeleteShader( fs );
+   GLCHECK( glDeleteShader( vs ) );
+   GLCHECK( glDeleteShader( fs ) );
 }
 
 void Shader::Activate()
 {
-   glUseProgram( m_iID );
+   GLCHECK( glUseProgram( m_iID ) );
 }
 
 void Shader::Deactivate()
 {
-   glDeleteProgram( m_iID );
+   GLCHECK( glDeleteProgram( m_iID ) );
 }
 
 GLuint Shader::GetID() const
@@ -80,20 +82,20 @@ void Shader::CheckForErrors( const GLuint a_iShaderID, const std::string_view a_
 
    if( a_sShaderType == "PROGRAM" )
    {
-      glGetProgramiv( a_iShaderID, GL_COMPILE_STATUS, &bHasCompiled );
+      GLCHECK( glGetProgramiv( a_iShaderID, GL_LINK_STATUS, &bHasCompiled ) );
       if( bHasCompiled == GL_FALSE )
       {
-         glGetProgramInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage );
+         GLCHECK( glGetProgramInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
          std::println( stderr, "{}", sInfoMessage);
          __debugbreak();
       }
    }
    else
    {
-      glGetShaderiv( a_iShaderID, GL_COMPILE_STATUS, &bHasCompiled );
+      GLCHECK( glGetShaderiv( a_iShaderID, GL_COMPILE_STATUS, &bHasCompiled ) );
       if( bHasCompiled == GL_FALSE )
       {
-         glGetShaderInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage );
+         GLCHECK( glGetShaderInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
          std::println( stderr, "{}", sInfoMessage );
          __debugbreak();
       }
