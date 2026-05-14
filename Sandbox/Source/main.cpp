@@ -134,7 +134,7 @@ int main()
    lightVBO.Unbind();
    lightEBO.Unbind();
 
-   glm::vec4 v4LightColor{ 1.f, 0.5f, 0.f, 0.f };
+   glm::vec4 v4LightColor{ 1.f, 0.5f, 0.6f, 0.f };
    glm::vec3 v4LightPosition{ 0.5f, 0.5f, 0.5f };
    glm::mat4 m4LightModel{ 1.f };
    m4LightModel = glm::translate( m4LightModel, v4LightPosition );
