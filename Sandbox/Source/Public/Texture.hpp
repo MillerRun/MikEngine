@@ -18,5 +18,6 @@ public:
 
 private:
    GLuint m_iID = 0;
+   GLuint m_iUnit = 0;
    GLenum m_eType = 0;
 };

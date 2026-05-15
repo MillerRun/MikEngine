@@ -15,9 +15,10 @@ Texture::Texture( const std::string_view a_sImageName, const GLenum a_eType, con
    stbi_uc * const pBytes = stbi_load( sFullPath.c_str(), &iImageWidth, &iImageHeigth, &iColorChannels, STBI_rgb_alpha);
 
    GLCHECK( glGenTextures( 1, &m_iID ) );
-   GLCHECK( glActiveTexture( a_eSlot ) );
+   GLCHECK( glActiveTexture( GL_TEXTURE0 + a_eSlot ) );
+   m_iUnit = a_eSlot;
    GLCHECK( glBindTexture( a_eType, m_iID ) );
-
+   
    GLCHECK( glTexParameteri( a_eType, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR ) );
    GLCHECK( glTexParameteri( a_eType, GL_TEXTURE_MAG_FILTER, GL_NEAREST ) );
 
@@ -40,6 +41,7 @@ void Texture::TextureUnit( Shader& a_Shader, const std::string_view a_sUniformNa
 
 void Texture::Bind()
 {
+   GLCHECK( glActiveTexture( GL_TEXTURE0 + m_iUnit ) );
    GLCHECK( glBindTexture( m_eType, m_iID ) );
 }
 

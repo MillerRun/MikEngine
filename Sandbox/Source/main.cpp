@@ -45,37 +45,17 @@ int main()
 
    constexpr std::array aVerticies =
    {
-      // <---POSITION--->     <-----COLOR RGB----->     <-TEXTURE->     <----NORMALS----->
-      -0.5f,  0.0f,  0.5f,    0.83f,  0.70f,  0.44f,    0.0f,  0.0f,    0.0f, -1.0f,  0.0f, // Bottom side
-      -0.5f,  0.0f, -0.5f,    0.83f,  0.70f,  0.44f,    0.0f,  5.0f,    0.0f, -1.0f,  0.0f, // Bottom side
-       0.5f,  0.0f, -0.5f,    0.83f,  0.70f,  0.44f,    5.0f,  5.0f,    0.0f, -1.0f,  0.0f, // Bottom side
-       0.5f,  0.0f,  0.5f,    0.83f,  0.70f,  0.44f,    5.0f,  0.0f,    0.0f, -1.0f,  0.0f, // Bottom side
-                                                                                      
-      -0.5f,  0.0f,  0.5f,    0.83f,  0.70f,  0.44f,    0.0f,  0.0f,   -0.8f,  0.5f,  0.0f, // Left Side
-      -0.5f,  0.0f, -0.5f,    0.83f,  0.70f,  0.44f,    5.0f,  0.0f,   -0.8f,  0.5f,  0.0f, // Left Side
-       0.0f,  0.8f,  0.0f,    0.92f,  0.86f,  0.76f,    2.5f,  5.0f,   -0.8f,  0.5f,  0.0f, // Left Side
-                                                                                      
-      -0.5f,  0.0f, -0.5f,    0.83f,  0.70f,  0.44f,    5.0f,  0.0f,    0.0f,  0.5f, -0.8f, // Non-facing side
-       0.5f,  0.0f, -0.5f,    0.83f,  0.70f,  0.44f,    0.0f,  0.0f,    0.0f,  0.5f, -0.8f, // Non-facing side
-       0.0f,  0.8f,  0.0f,    0.92f,  0.86f,  0.76f,    2.5f,  5.0f,    0.0f,  0.5f, -0.8f, // Non-facing side
-                                                                                      
-       0.5f,  0.0f, -0.5f,    0.83f,  0.70f,  0.44f,    0.0f,  0.0f,    0.8f,  0.5f,  0.0f, // Right side
-       0.5f,  0.0f,  0.5f,    0.83f,  0.70f,  0.44f,    5.0f,  0.0f,    0.8f,  0.5f,  0.0f, // Right side
-       0.0f,  0.8f,  0.0f,    0.92f,  0.86f,  0.76f,    2.5f,  5.0f,    0.8f,  0.5f,  0.0f, // Right side
-                                                                                      
-       0.5f,  0.0f,  0.5f,    0.83f,  0.70f,  0.44f,    5.0f,  0.0f,    0.0f,  0.5f,  0.8f, // Facing side
-      -0.5f,  0.0f,  0.5f,    0.83f,  0.70f,  0.44f,    0.0f,  0.0f,    0.0f,  0.5f,  0.8f, // Facing side
-       0.0f,  0.8f,  0.0f,    0.92f,  0.86f,  0.76f,    2.5f,  5.0f,    0.0f,  0.5f,  0.8f  // Facing side
+      // <---POSITION--->     <---COLOR RGB---->     <-TEXTURE->     <----NORMALS---->
+      -1.0f,  0.0f,  1.0f,    0.0f,  0.0f,  0.0f,    0.0f,  0.0f,    0.0f, 1.0f, 0.0f,
+      -1.0f,  0.0f, -1.0f,    0.0f,  0.0f,  0.0f,    0.0f,  1.0f,    0.0f, 1.0f, 0.0f,
+       1.0f,  0.0f, -1.0f,    0.0f,  0.0f,  0.0f,    1.0f,  1.0f,    0.0f, 1.0f, 0.0f,
+       1.0f,  0.0f,  1.0f,    0.0f,  0.0f,  0.0f,    1.0f,  0.0f,    0.0f, 1.0f, 0.0f
    };
 
    constexpr std::array aIndicies =
    {
-       0u,  1u,  2u, // Bottom side
-       0u,  2u,  3u, // Bottom side
-       4u,  6u,  5u, // Left side
-       7u,  9u,  8u, // Non-facing side
-      10u, 12u, 11u, // Right side
-      13u, 15u, 14u  // Facing side
+      0u, 1u, 2u,
+      0u, 2u, 3u
    };
 
    constexpr std::array aLightVerticies =
@@ -134,7 +114,7 @@ int main()
    lightVBO.Unbind();
    lightEBO.Unbind();
 
-   glm::vec4 v4LightColor{ 1.f, 0.5f, 0.6f, 0.f };
+   glm::vec4 v4LightColor{ 1.f, 1.0f, 1.0f, 0.f };
    glm::vec3 v4LightPosition{ 0.5f, 0.5f, 0.5f };
    glm::mat4 m4LightModel{ 1.f };
    m4LightModel = glm::translate( m4LightModel, v4LightPosition );
@@ -152,8 +132,11 @@ int main()
    GLCHECK( glUniform4f( glGetUniformLocation( shader.GetID(), "u_v4LightColor" ), v4LightColor.x, v4LightColor.y, v4LightColor.z, v4LightColor.w ) );
    GLCHECK( glUniform3f( glGetUniformLocation( shader.GetID(), "u_v3LightPosition" ), v4LightPosition.x, v4LightPosition.y, v4LightPosition.z ) );
 
-   Texture tex{ "brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE };
+   Texture tex{ "planks.png", GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE };
    tex.TextureUnit( shader, "u_Tex0", 0 );
+
+   Texture specTex{ "planksSpec.png", GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE };
+   specTex.TextureUnit( shader, "u_Tex1", 1 );
 
    GLCHECK( glEnable( GL_DEPTH_TEST ) );
 
@@ -173,6 +156,8 @@ int main()
       hCamera.Matrix( shader, "u_m4Camera" );
 
       tex.Bind();
+      specTex.Bind();
+
       vao.Bind();
       GLCHECK( glDrawElements( GL_TRIANGLES, static_cast<int>( aIndicies.size() ), GL_UNSIGNED_INT, 0 ) );
 

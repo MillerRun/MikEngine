@@ -8,6 +8,7 @@ in vec3 v3CurrentPosition;
 out vec4 FragColor;
 
 uniform sampler2D u_Tex0;
+uniform sampler2D u_Tex1;
 uniform vec4 u_v4LightColor;
 uniform vec3 u_v3LightPosition;
 uniform vec3 u_v3CameraPosition;
@@ -22,8 +23,8 @@ void main()
    float fSpecularLight = 0.5f;
    vec3 v3ViewDirection = normalize( u_v3CameraPosition - v3CurrentPosition );
    vec3 v3ReflectionDirection = reflect( -v3LightDirection, v3Normal );
-   float fSpecularAmount = pow( max( dot( v3ViewDirection, v3ReflectionDirection ), 0.0 ), 8 );
+   float fSpecularAmount = pow( max( dot( v3ViewDirection, v3ReflectionDirection ), 0.0 ), 16 );
    float fSpecular = fSpecularAmount * fSpecularLight;
 
-   FragColor = texture( u_Tex0, v2TexCoords ) * u_v4LightColor * ( fDiffuse + fAmbientColor + fSpecular );
+   FragColor = texture( u_Tex0, v2TexCoords ) * u_v4LightColor * ( fDiffuse + fAmbientColor ) + texture( u_Tex0, v2TexCoords ).r * fSpecular;
 }

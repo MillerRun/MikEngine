@@ -56,6 +56,8 @@ Shader::Shader( const std::string_view a_sShaderName )
    CheckForErrors( m_iID, "PROGRAM" );
 
    // delete shaders, because program contains them already
+   GLCHECK( glDetachShader( m_iID, vs ) );
+   GLCHECK( glDetachShader( m_iID, fs ) );
    GLCHECK( glDeleteShader( vs ) );
    GLCHECK( glDeleteShader( fs ) );
 }
