@@ -42,6 +42,9 @@
     <ClCompile Include="Source\Private\Camera.cpp">
       <Filter>Source Files\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Private\Mesh.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\Shader.hpp">
@@ -60,6 +63,12 @@
       <Filter>Header Files\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Public\Common.hpp">
+      <Filter>Header Files\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Mesh.hpp">
+      <Filter>Header Files\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Vertex.hpp">
       <Filter>Header Files\Public</Filter>
     </ClInclude>
   </ItemGroup>

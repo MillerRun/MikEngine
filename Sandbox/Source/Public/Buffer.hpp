@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Common.hpp"
+#include <glad/glad.h>
+#include <vector>
 
-#include <glad/glad.h> 
+#include "Common.hpp"
+#include "Vertex.hpp"
 
 enum class EBufferType : int
 {
@@ -14,11 +16,11 @@ template<EBufferType BufferType, typename TDataType>
 class Buffer
 {
 public:
-   explicit Buffer( const TDataType *a_pData, GLsizeiptr a_iDataSize, bool a_bDynamic = false )
+   explicit Buffer( const std::vector<TDataType>& a_aData, bool a_bDynamic = false )
    {
       GLCHECK( glGenBuffers( 1, &m_iID ) );
       GLCHECK( glBindBuffer( GetBufferTarget(), m_iID ) );
-      GLCHECK( glBufferData( GetBufferTarget(), a_iDataSize, a_pData, a_bDynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW ) );
+      GLCHECK( glBufferData( GetBufferTarget(), a_aData.size() * sizeof( TDataType ), a_aData.data(), a_bDynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW));
    }
 
    void Bind();
@@ -66,5 +68,5 @@ GLuint Buffer<BufferType, TDataType>::GetID() const
    return m_iID;
 }
 
-using VertexBuffer = Buffer<EBufferType::VERTEX, GLfloat>;
+using VertexBuffer = Buffer<EBufferType::VERTEX, Vertex>;
 using IndexBuffer = Buffer<EBufferType::INDEX, GLuint>;
