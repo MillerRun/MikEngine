@@ -15,10 +15,10 @@ uniform mat4 u_m4Model;
 
 void main()
 {
-   f_v3CurrentPosition = vec3( u_m4Model * vec4( a_v3Pos, 1.0f ) );
+   f_v3CurrentPosition = vec3( u_m4Model * vec4( a_v3Pos, 1.0 ) );
    f_v3Normal = a_v3Normal;
    f_v3Color = a_v3Color;
    f_v2TexCoords = a_v2Tex;
 
-   gl_Position = u_m4Camera * vec4( f_v3CurrentPosition, 1.0f );
+   gl_Position = u_m4Camera * vec4( f_v3CurrentPosition, 1.0 );
 }

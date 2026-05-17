@@ -2,5 +2,8 @@
   <Configurations>
     <Platform Name="x64" />
   </Configurations>
-  <Project Path="Sandbox/Sandbox.vcxproj" Id="332816a5-b6b1-488e-a83a-56aba6a9bd5a" />
+  <Project Path="Lib/Glad/Glad.vcxproj" Id="a11815a0-a657-4dd0-aa94-0ec4ea28aeeb" />
+  <Project Path="Sandbox/Sandbox.vcxproj" Id="332816a5-b6b1-488e-a83a-56aba6a9bd5a">
+    <BuildDependency Project="Lib/Glad/Glad.vcxproj" />
+  </Project>
 </Solution>

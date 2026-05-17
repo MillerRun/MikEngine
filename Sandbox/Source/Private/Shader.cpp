@@ -13,7 +13,7 @@ namespace
    constexpr const char *k_sFragmentShaderFileResolution = ".frag";
 
    [[nodiscard]]
-   std::string GetFileContent( std::string_view a_sFileName )
+   std::string GetFileContent( const std::string_view a_sFileName )
    {
       if( std::ifstream file{ std::string{ k_sShadersPath } + a_sFileName.data(), std::ios::binary } )
       {
@@ -24,7 +24,7 @@ namespace
          file.read( sContent.data(), sContent.size() );
          return sContent;
       }
-      std::string sErrorMessage = "Failed to open shader file" + std::string{ k_sShadersPath } + std::string{ a_sFileName };
+      const std::string sErrorMessage = "Failed to open shader file" + std::string{ k_sShadersPath } + std::string{ a_sFileName };
       throw std::runtime_error( sErrorMessage );
    }
 }

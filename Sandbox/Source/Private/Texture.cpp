@@ -13,7 +13,7 @@ Texture::Texture( const std::string_view a_sImageName, const EType a_eType, cons
    const std::string sFullPath = "../Resources/" + std::string( a_sImageName );
    int iImageWidth, iImageHeigth, iColorChannels;
    stbi_set_flip_vertically_on_load( true );
-   stbi_uc * const pBytes = stbi_load( sFullPath.c_str(), &iImageWidth, &iImageHeigth, &iColorChannels, STBI_rgb_alpha);
+   auto const pBytes = stbi_load( sFullPath.c_str(), &iImageWidth, &iImageHeigth, &iColorChannels, STBI_default );
 
    GLCHECK( glGenTextures( 1, &m_iID ) );
    GLCHECK( glActiveTexture( GL_TEXTURE0 + a_eSlot ) );
