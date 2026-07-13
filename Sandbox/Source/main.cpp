@@ -4,6 +4,7 @@
 #include "Shader.hpp"
 #include "Camera.hpp"
 #include "Mesh.hpp"
+#include "Model.hpp"
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -80,6 +81,8 @@ int main()
       4u, 5u, 6u,
       4u, 6u, 7u,
    };
+
+   Model mdl( "bunny/", "scene.gltf" );
 
    const std::array aTextures =
    {

@@ -13,7 +13,7 @@ Texture::Texture( const std::string_view a_sImageName, const EType a_eType, cons
    const std::string sFullPath = "../Resources/" + std::string( a_sImageName );
    int iImageWidth, iImageHeigth, iColorChannels;
    stbi_set_flip_vertically_on_load( true );
-   auto const pBytes = stbi_load( sFullPath.c_str(), &iImageWidth, &iImageHeigth, &iColorChannels, STBI_default );
+   auto pBytes = stbi_load( sFullPath.c_str(), &iImageWidth, &iImageHeigth, &iColorChannels, STBI_default );
 
    GLCHECK( glGenTextures( 1, &m_iID ) );
    GLCHECK( glActiveTexture( GL_TEXTURE0 + a_eSlot ) );
@@ -28,8 +28,10 @@ Texture::Texture( const std::string_view a_sImageName, const EType a_eType, cons
    GLCHECK( glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, iImageWidth, iImageHeigth, 0, a_eFormat, a_ePixelType, pBytes ) );
    GLCHECK( glGenerateMipmap( GL_TEXTURE_2D ) );
 
-   stbi_image_free( pBytes );
    GLCHECK( glBindTexture( GL_TEXTURE_2D, 0 ) );
+
+   stbi_image_free( pBytes );
+   pBytes = nullptr;
 }
 
 void Texture::TextureUnit( Shader& a_Shader, const std::string_view a_sUniformName, const GLuint a_iUnit )

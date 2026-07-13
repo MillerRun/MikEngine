@@ -72,6 +72,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Private\Camera.cpp" />
     <ClCompile Include="Source\Private\Mesh.cpp" />
+    <ClCompile Include="Source\Private\Model.cpp" />
     <ClCompile Include="Source\Private\Shader.cpp" />
     <ClCompile Include="Source\Private\Texture.cpp" />
     <ClCompile Include="Source\Private\VAO.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Source\Public\Camera.hpp" />
     <ClInclude Include="Source\Public\Common.hpp" />
     <ClInclude Include="Source\Public\Mesh.hpp" />
+    <ClInclude Include="Source\Public\Model.hpp" />
     <ClInclude Include="Source\Public\Shader.hpp" />
     <ClInclude Include="Source\Public\Texture.hpp" />
     <ClInclude Include="Source\Public\VAO.hpp" />

@@ -45,6 +45,9 @@
     <ClCompile Include="Source\Private\Mesh.cpp">
       <Filter>Source Files\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Private\Model.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Public\Shader.hpp">
@@ -69,6 +72,9 @@
       <Filter>Header Files\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Public\Vertex.hpp">
+      <Filter>Header Files\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Model.hpp">
       <Filter>Header Files\Public</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,31 +8,14 @@
 
 namespace
 {
-   constexpr const char *k_sShadersPath = "../Resources/Shaders/";
    constexpr const char *k_sVertexShaderFileResolution = ".vert";
    constexpr const char *k_sFragmentShaderFileResolution = ".frag";
-
-   [[nodiscard]]
-   std::string GetFileContent( const std::string_view a_sFileName )
-   {
-      if( std::ifstream file{ std::string{ k_sShadersPath } + a_sFileName.data(), std::ios::binary } )
-      {
-         std::string sContent;
-         file.seekg( 0, std::ios::end );
-         sContent.resize( file.tellg() );
-         file.seekg( 0, std::ios::beg );
-         file.read( sContent.data(), sContent.size() );
-         return sContent;
-      }
-      const std::string sErrorMessage = "Failed to open shader file" + std::string{ k_sShadersPath } + std::string{ a_sFileName };
-      throw std::runtime_error( sErrorMessage );
-   }
 }
 
 Shader::Shader( const std::string_view a_sShaderName )
 {
-   const auto sVertexShaderContent = GetFileContent( a_sShaderName.data() + std::string{ k_sVertexShaderFileResolution } );
-   const auto sFragmentShaderContent = GetFileContent( a_sShaderName.data() + std::string{ k_sFragmentShaderFileResolution } );
+   const auto sVertexShaderContent = Utils::GetFileContent( std::format( "{}{}{}", Utils::k_sShadersDir, a_sShaderName, k_sVertexShaderFileResolution ) );
+   const auto sFragmentShaderContent = Utils::GetFileContent( std::format( "{}{}{}", Utils::k_sShadersDir, a_sShaderName, k_sFragmentShaderFileResolution ) );
 
    // vertex shader
    const GLuint vs = glCreateShader( GL_VERTEX_SHADER );

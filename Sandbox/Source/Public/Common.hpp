@@ -1,10 +1,15 @@
 #pragma once
 
+#include <format>
+#include <string>
+#include <string_view>
+#include <fstream>
+
+// GLCHECK - checks for gl errors
+//
 #ifdef _DEBUG
 #  include <glad/glad.h>
 #  include <print>
-#  include <string>
-#  include <format>
 #  define GLCHECK( call )                                                                                                 \
    do                                                                                                                     \
    {                                                                                                                      \
@@ -30,4 +35,60 @@
 
 #else // not _DEBUG
 #  define GLCHECK( call ) call
-#endif
+#endif // GLCHECK
+
+// ASSERT
+//
+#ifdef _DEBUG
+
+   // DEBUGBREAK
+   //
+#  ifdef _MSC_VER
+#    define DEBUGBREAK() __debugbreak()
+#  else
+#    include <csignal>
+#    define DEBUGBREAK() raise( SIGTRAP )
+#  endif // // DEBUGBREAK
+
+   // MKASSERT
+   //
+#  include <print>
+#  include <format>
+#  define MKASSERT( expression, ... )                                                                  \
+   do                                                                                                  \
+   {                                                                                                   \
+      if( not( expression ) )                                                                          \
+      {                                                                                                \
+         std::println( stderr, "[ASSERT] {}:{}: {}", __FILE__, __LINE__, std::format( __VA_ARGS__ ) ); \
+         DEBUGBREAK();                                                                                 \
+      }                                                                                                \
+   }while( false )
+
+#else
+#  define DEBUGBREAK()
+#  define MKASSERT( expression, ... )
+#endif // ASSERT
+
+class Utils
+{
+public:
+   static constexpr std::string_view k_sResoursesDir = "../Resources/";
+   static constexpr std::string_view k_sShadersDir = "../Resources/Shaders/";
+
+public:
+   [[nodiscard]] static
+   std::string GetFileContent( const std::string_view a_sFilePath )
+   {
+      if( std::ifstream file{ a_sFilePath.data(), std::ios::binary } )
+      {
+         std::string sContent;
+         file.seekg( 0, std::ios::end );
+         sContent.resize( file.tellg() );
+         file.seekg( 0, std::ios::beg );
+         file.read( sContent.data(), sContent.size() );
+         return sContent;
+      }
+      const std::string sErrorMessage = "Failed to open file " + std::string{ a_sFilePath };
+      throw std::runtime_error( sErrorMessage );
+   }
+};
