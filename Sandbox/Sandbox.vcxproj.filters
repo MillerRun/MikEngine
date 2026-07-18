@@ -13,14 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Public">
-      <UniqueIdentifier>{708c9648-f958-497c-9422-28a5882afcdd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Private">
       <UniqueIdentifier>{e806a6b3-02ca-4a0c-a1ff-11f88b8918ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{dea661c0-a35d-4fdc-ae33-37d1f5ed104a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Include">
+      <UniqueIdentifier>{c6f02b1a-c2df-496a-a529-c1f29026634a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,35 +50,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Public\Shader.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Buffer.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\VAO.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Texture.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Camera.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Common.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Mesh.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Vertex.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Model.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\Resources\Shaders\default.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
@@ -91,5 +62,34 @@
     <None Include="..\Resources\Shaders\light.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Include\Buffer.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Camera.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Common.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Mesh.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Model.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Shader.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Texture.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\VAO.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Vertex.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

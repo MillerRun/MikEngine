@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef NDEBUG
-#  define DEBUGBREAK()
+#  define DEBUGBREAK() ( void( 0 ) )
 #else
 #  ifdef _MSC_VER
 #    define DEBUGBREAK() __debugbreak()
@@ -12,7 +12,7 @@
 #endif
 
 #ifdef NDEBUG
-#  define MKASSERT( expression, ... )
+#  define MKASSERT( expression, ... ) ( void( 0 ) )
 #else
 #  include <print>
 #  include <format>

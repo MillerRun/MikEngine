@@ -1,6 +1,7 @@
 #include "Shader.hpp"
 
 #include "Common.hpp"
+#include "Utils/Assert.hpp"
 
 #include <fstream>
 #include <string>
@@ -72,7 +73,7 @@ void Shader::CheckForErrors( const GLuint a_iShaderID, const std::string_view a_
       {
          GLCHECK( glGetProgramInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
          std::println( stderr, "{}", sInfoMessage);
-         __debugbreak();
+         DEBUGBREAK();
       }
    }
    else
@@ -82,7 +83,7 @@ void Shader::CheckForErrors( const GLuint a_iShaderID, const std::string_view a_
       {
          GLCHECK( glGetShaderInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
          std::println( stderr, "{}", sInfoMessage );
-         __debugbreak();
+         DEBUGBREAK();
       }
    }
 }

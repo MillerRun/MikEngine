@@ -37,38 +37,6 @@
 #  define GLCHECK( call ) call
 #endif // GLCHECK
 
-// ASSERT
-//
-#ifdef _DEBUG
-
-   // DEBUGBREAK
-   //
-#  ifdef _MSC_VER
-#    define DEBUGBREAK() __debugbreak()
-#  else
-#    include <csignal>
-#    define DEBUGBREAK() raise( SIGTRAP )
-#  endif // // DEBUGBREAK
-
-   // MKASSERT
-   //
-#  include <print>
-#  include <format>
-#  define MKASSERT( expression, ... )                                                                  \
-   do                                                                                                  \
-   {                                                                                                   \
-      if( not( expression ) )                                                                          \
-      {                                                                                                \
-         std::println( stderr, "[ASSERT] {}:{}: {}", __FILE__, __LINE__, std::format( __VA_ARGS__ ) ); \
-         DEBUGBREAK();                                                                                 \
-      }                                                                                                \
-   }while( false )
-
-#else
-#  define DEBUGBREAK()
-#  define MKASSERT( expression, ... )
-#endif // ASSERT
-
 class Utils
 {
 public:

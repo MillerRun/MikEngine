@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Develop|x64">
+      <Configuration>Develop</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
@@ -23,6 +27,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
@@ -48,13 +59,20 @@
     <Import Project="..\Settings\PropertySheets\1_Game.props" />
     <Import Project="..\Settings\PropertySheets\2_Release.props" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Settings\PropertySheets\0_Base.props" />
+    <Import Project="..\Settings\PropertySheets\0_Includes.props" />
+    <Import Project="..\Settings\PropertySheets\1_Game.props" />
+    <Import Project="..\Settings\PropertySheets\2_Develop.props" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile />
     <Link />
     <ClCompile />
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -64,7 +82,17 @@
     </Link>
     <ClCompile />
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">
+    <ClCompile />
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <ClCompile />
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -78,21 +106,21 @@
     <ClCompile Include="Source\Private\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Public\Buffer.hpp" />
-    <ClInclude Include="Source\Public\Camera.hpp" />
-    <ClInclude Include="Source\Public\Common.hpp" />
-    <ClInclude Include="Source\Public\Mesh.hpp" />
-    <ClInclude Include="Source\Public\Model.hpp" />
-    <ClInclude Include="Source\Public\Shader.hpp" />
-    <ClInclude Include="Source\Public\Texture.hpp" />
-    <ClInclude Include="Source\Public\VAO.hpp" />
-    <ClInclude Include="Source\Public\Vertex.hpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\Resources\Shaders\default.frag" />
     <None Include="..\Resources\Shaders\default.vert" />
     <None Include="..\Resources\Shaders\light.frag" />
     <None Include="..\Resources\Shaders\light.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Include\Buffer.hpp" />
+    <ClInclude Include="Source\Include\Camera.hpp" />
+    <ClInclude Include="Source\Include\Common.hpp" />
+    <ClInclude Include="Source\Include\Mesh.hpp" />
+    <ClInclude Include="Source\Include\Model.hpp" />
+    <ClInclude Include="Source\Include\Shader.hpp" />
+    <ClInclude Include="Source\Include\Texture.hpp" />
+    <ClInclude Include="Source\Include\VAO.hpp" />
+    <ClInclude Include="Source\Include\Vertex.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

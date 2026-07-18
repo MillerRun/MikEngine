@@ -1,6 +1,7 @@
 #include "Model.hpp"
 
 #include "Common.hpp"
+#include "Utils/Assert.hpp"
 
 #include <json/json.hpp>
 #include <glm/gtc/type_ptr.hpp>
