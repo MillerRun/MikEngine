@@ -18,20 +18,33 @@ namespace MK::File
       MAX
    };
 
+   /// <summary> Records a default file directory </summary>
+   /// <param name="a_sPath"> will be automaticaly inserted in a beggining of each following function call </param>
+   /// <returns> void </returns>
+   ///
    void SetDefaultPath( const std::string_view a_sPath );
 
    template<typename T>
    concept CPathPart = std::convertible_to<T, std::string_view>;
 
+   /// <summary> Try read a file with a given path </summary>
+   /// <param name="a_sFilePath"> relative file path </param>
+   /// <returns> std::expected with either std::string of file's content or EErrorCode value </returns>
+   ///
    [[nodiscard]]
-   std::expected<std::string, EErrorCode> GetFileContent( const std::string_view a_sFilePath );
+   auto GetFileContent( const std::string_view a_sFilePath ) -> std::expected<std::string, EErrorCode>;
 
+
+   /// <summary> Try read a file with a given path. All arguments will be merged in a single string with '/' separators </summary>
+   /// <param name="a_Params"> path elements of text type </param>
+   /// <returns> std::expected with either std::string of file's content or EErrorCode value </returns>
+   ///
    template<CPathPart... TPathParams> requires( sizeof...( TPathParams ) >= 2 )
    [[nodiscard]]
-   std::expected<std::string, EErrorCode> GetFileContent( TPathParams&&... a_Params )
+   auto GetFileContent( TPathParams&&... a_Params ) -> std::expected<std::string, EErrorCode>
    {
       std::string sResult; ( ( sResult += a_Params, sResult += '/' ), ... );
-      sResult.pop_back();
+      sResult.pop_back(); // remove separator on end
       return GetFileContent( sResult );
    }
 }
@@ -40,7 +53,7 @@ template<>
 struct std::formatter<MK::File::EErrorCode> : std::formatter<std::string_view>
 {
    [[nodiscard]] static constexpr
-   std::string_view ToString( const MK::File::EErrorCode eCode )
+   auto ToString( const MK::File::EErrorCode eCode ) -> std::string_view
    {
       using namespace MK::File;
 
