@@ -8,8 +8,8 @@
       <AdditionalIncludeDirectories>$(LibraryDir)json\include;$(LibraryDir)GLFW\include;$(LibraryDir)Glad\include;$(LibraryDir)stb\include;$(LibraryDir)glm\include;$(SolutionDir)Utils\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(LibraryDir)GLFW\Bin\$(OutputConfigName)\;$(LibraryDir)Glad\Bin\$(OutputConfigName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LibraryDir)GLFW\Bin\$(OutputConfigName)\;$(LibraryDir)Glad\Bin\$(OutputConfigName)\;$(SolutionDir)Utils\Bin\$(OutputConfigName)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glad.lib;glfw3.lib;Utils.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />

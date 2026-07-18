@@ -8,7 +8,7 @@ namespace
    std::filesystem::path g_sDefaultPath;
 }
 
-namespace MK::Utils::File
+namespace MK::File
 {
    void SetDefaultPath( const std::string_view a_sPath )
    {
@@ -25,10 +25,6 @@ namespace MK::Utils::File
       {
          std::error_code errc;
          const auto status = std::filesystem::status( sPath, errc );
-         if( !errc )
-         {
-            return std::unexpected{ EErrorCode::IO_ERROR };
-         }
          if( status.type() == std::filesystem::file_type::not_found )
          {
             return std::unexpected{ EErrorCode::NOT_FOUND };
@@ -41,7 +37,7 @@ namespace MK::Utils::File
          }
       }
 
-      if( std::ifstream file{ a_sFilePath.data(), std::ios::binary } )
+      if( std::ifstream file{ sPath, std::ios::binary } )
       {
          std::string sContent;
          file.seekg( 0, std::ios::end );

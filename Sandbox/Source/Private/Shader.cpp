@@ -2,6 +2,7 @@
 
 #include "Common.hpp"
 #include "Utils/Assert.hpp"
+#include "Utils/File.hpp"
 
 #include <fstream>
 #include <string>
@@ -11,12 +12,24 @@ namespace
 {
    constexpr const char *k_sVertexShaderFileResolution = ".vert";
    constexpr const char *k_sFragmentShaderFileResolution = ".frag";
+   constexpr const char *k_sShaderSubDir = "Shaders/";
 }
 
 Shader::Shader( const std::string_view a_sShaderName )
 {
-   const auto sVertexShaderContent = Utils::GetFileContent( std::format( "{}{}{}", Utils::k_sShadersDir, a_sShaderName, k_sVertexShaderFileResolution ) );
-   const auto sFragmentShaderContent = Utils::GetFileContent( std::format( "{}{}{}", Utils::k_sShadersDir, a_sShaderName, k_sFragmentShaderFileResolution ) );
+   const auto GetShaderContent = [a_sShaderName]( const std::string_view a_sResolution ) -> std::string
+   {
+      auto sFullShaderName = std::format( "{}{}", a_sShaderName, a_sResolution );
+      const auto result = MK::File::GetFileContent( k_sShaderSubDir, sFullShaderName );
+      if( !result )
+      {
+         MKASSERT( false, "Failed to read {} shader file with error {}", a_sShaderName, static_cast<int>( result.error() ) );
+         return {};
+      }
+      return result.value();
+   };
+   const auto sVertexShaderContent = GetShaderContent( k_sVertexShaderFileResolution );
+   const auto sFragmentShaderContent = GetShaderContent( k_sFragmentShaderFileResolution );
 
    // vertex shader
    const GLuint vs = glCreateShader( GL_VERTEX_SHADER );

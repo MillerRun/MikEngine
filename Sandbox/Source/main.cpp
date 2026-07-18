@@ -5,6 +5,7 @@
 #include "Camera.hpp"
 #include "Mesh.hpp"
 #include "Model.hpp"
+#include "Utils/File.hpp"
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -19,6 +20,8 @@ namespace
 
 int main()
 {
+   MK::File::SetDefaultPath( "../Resources/" );
+
    // initialize GLFW
    glfwInit();
    glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
