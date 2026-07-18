@@ -2,7 +2,7 @@
 
 #include <string_view>
 #include <vector>
-#include <glm/gtc/quaternion.hpp>
+#include <Utils/Math.hpp>
 #include "Mesh.hpp"
 
 class Shader;

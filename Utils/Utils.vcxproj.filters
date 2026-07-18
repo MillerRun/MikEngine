@@ -24,6 +24,9 @@
     <ClInclude Include="Source\pch.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Utils\Math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\File.cpp">

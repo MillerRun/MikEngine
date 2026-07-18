@@ -65,7 +65,7 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\Utils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Lib\glm\include\;$(ProjectDir)Include\Utils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
@@ -80,7 +80,7 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\Utils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Lib\glm\include\;$(ProjectDir)Include\Utils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
@@ -95,7 +95,7 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\Utils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Lib\glm\include\;$(ProjectDir)Include\Utils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
@@ -103,6 +103,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Utils\Assert.hpp" />
     <ClInclude Include="Include\Utils\File.hpp" />
+    <ClInclude Include="Include\Utils\Math.hpp" />
     <ClInclude Include="Source\pch.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include <Utils/Math.hpp>
 
 struct GLFWwindow;
 class Shader;

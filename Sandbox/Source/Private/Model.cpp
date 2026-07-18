@@ -4,11 +4,6 @@
 #include "Utils/File.hpp"
 
 #include <json/json.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/matrix_decompose.hpp>
-#undef GLM_ENABLE_EXPERIMENTAL
-
 #include <optional>
 
 using json = nlohmann::json;
