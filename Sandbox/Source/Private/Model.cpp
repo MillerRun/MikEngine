@@ -174,7 +174,7 @@ namespace
       }
       else
       {
-         MKASSERT( false, "Failed to read model file {} with error {}", sURI, static_cast<int>( result.error() ) );
+         MKASSERT( false, "Failed to read model file {} with error {}", sURI, result.error() );
          return {};
       }
    }
@@ -338,7 +338,7 @@ Model::Model( const std::string_view a_sFilePath, const std::string_view a_sFile
       }
       else
       {
-         MKASSERT( false, "Failed to read model file {} with error {}", a_sFileName, static_cast<int>( result.error() ) );
+         MKASSERT( false, "Failed to read model file {} with error {}", a_sFileName, result.error() );
          return std::string{};
       }
    } );

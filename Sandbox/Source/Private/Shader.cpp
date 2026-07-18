@@ -23,7 +23,7 @@ Shader::Shader( const std::string_view a_sShaderName )
       const auto result = MK::File::GetFileContent( k_sShaderSubDir, sFullShaderName );
       if( !result )
       {
-         MKASSERT( false, "Failed to read {} shader file with error {}", a_sShaderName, static_cast<int>( result.error() ) );
+         MKASSERT( false, "Failed to read {} shader file with error {}", a_sShaderName, result.error() );
          return {};
       }
       return result.value();
