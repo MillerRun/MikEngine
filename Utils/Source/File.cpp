@@ -1,7 +1,7 @@
+#include "pch.hpp"
+
 #include "File.hpp"
 #include "Assert.hpp"
-#include <fstream>
-#include <filesystem>
 
 namespace
 {
