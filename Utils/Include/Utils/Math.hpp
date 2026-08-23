@@ -11,6 +11,8 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
 #undef GLM_ENABLE_EXPERIMENTAL
+#undef GLM_FORCE_DEPTH_ZERO_TO_ONE
+#undef GLM_FORCE_LEFT_HANDED
 
 namespace MK::Math
 {

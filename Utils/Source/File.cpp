@@ -25,15 +25,21 @@ namespace MK::File
       {
          std::error_code errc;
          const auto status = std::filesystem::status( sPath, errc );
-         if( status.type() == std::filesystem::file_type::not_found )
+         switch( const auto eType = status.type() )
+         {
+         case std::filesystem::file_type::not_found:
          {
             return std::unexpected{ EErrorCode::NOT_FOUND };
          }
-         if( status.type() == std::filesystem::file_type::regular )
+         case std::filesystem::file_type::regular:
          {
             const auto permissions = status.permissions();
             if( ( permissions & std::filesystem::perms::others_read ) == std::filesystem::perms::none )
                return std::unexpected{ EErrorCode::ACCESS_DENIED };
+            break;
+         }
+         default:
+            break;
          }
       }
 

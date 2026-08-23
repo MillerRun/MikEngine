@@ -105,9 +105,6 @@ int main()
       , std::vector<Texture>( aTextures.cbegin(), aTextures.cend() )
    };
 
-   //VAO lightVAO;
-   //lightVAO.Bind();
-
    glm::vec4 v4LightColor( 1.f, 1.0f, 1.0f, 0.f );
    glm::vec3 v4LightPosition( 0.5f, 0.5f, 0.5f );
    glm::mat4 m4LightModel( 1.f );

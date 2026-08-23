@@ -17,15 +17,15 @@ namespace MK::File
 
       MAX
    };
+   
+   template<typename T>
+   concept CPathPart = std::convertible_to<T, std::string_view>;
 
    /// <summary> Records a default file directory </summary>
    /// <param name="a_sPath"> will be automaticaly inserted in a beggining of each following function call </param>
    /// <returns> void </returns>
    ///
    void SetDefaultPath( const std::string_view a_sPath );
-
-   template<typename T>
-   concept CPathPart = std::convertible_to<T, std::string_view>;
 
    /// <summary> Try read a file with a given path </summary>
    /// <param name="a_sFilePath"> relative file path </param>
@@ -52,12 +52,13 @@ namespace MK::File
 template<>
 struct std::formatter<MK::File::EErrorCode> : std::formatter<std::string_view>
 {
+private:
    [[nodiscard]] static constexpr
    auto ToString( const MK::File::EErrorCode eCode ) -> std::string_view
    {
       using namespace MK::File;
 
-      static_assert( static_cast<int>( EErrorCode::MAX ) == 5, "Unhandled enum case. Add statement below and update static_assert" );
+      static_assert( static_cast<int>( EErrorCode::MAX ) == 5, "Unhandled enum case. Add case statement below and update static_assert" );
       switch ( eCode )
       {
       case EErrorCode::UNINITIALIZED:  return "UNINITIALIZED";
@@ -65,10 +66,13 @@ struct std::formatter<MK::File::EErrorCode> : std::formatter<std::string_view>
       case EErrorCode::ACCESS_DENIED:  return "ACCESS_DENIED";
       case EErrorCode::IO_ERROR:       return "IO_ERROR";
       case EErrorCode::FAILED_TO_OPEN: return "FAILED_TO_OPEN";
+      case EErrorCode::MAX:
+         return "";
       }
-      return "";
+      std::unreachable();
    }
 
+public:
    auto format( const MK::File::EErrorCode eCode, auto &ctx ) const
    {
       return std::formatter<std::string_view>::format( ToString( eCode ), ctx );
