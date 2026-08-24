@@ -1,13 +1,9 @@
 #include "Model.hpp"
 
-#include "Common.hpp"
+#include "Utils/Assert.hpp"
+#include "Utils/File.hpp"
 
 #include <json/json.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/matrix_decompose.hpp>
-#undef GLM_ENABLE_EXPERIMENTAL
-
 #include <optional>
 
 using json = nlohmann::json;
@@ -163,11 +159,19 @@ namespace
       }
       
       const std::string_view sURI = jBuffersBegin["uri"];
-      const std::string sContent = Utils::GetFileContent( std::format( "{}{}{}", Utils::k_sResoursesDir, a_sModelPath, sURI ) );
-      return std::vector<std::byte>(
-         reinterpret_cast<const std::byte *>( sContent.data() ),
-         reinterpret_cast<const std::byte *>( sContent.data() + sContent.size() )
-      );
+      if( const auto result = MK::File::GetFileContent( a_sModelPath, sURI ); result )
+      {
+         const auto sContent = result.value();
+         return std::vector<std::byte>(
+            reinterpret_cast<const std::byte *>( sContent.data() ),
+            reinterpret_cast<const std::byte *>( sContent.data() + sContent.size() )
+         );
+      }
+      else
+      {
+         MKASSERT( false, "Failed to read model file {} with error {}", sURI, result.error() );
+         return {};
+      }
    }
 
    [[nodiscard]] inline
@@ -321,7 +325,18 @@ namespace
 
 Model::Model( const std::string_view a_sFilePath, const std::string_view a_sFileName )
 {
-   const std::string sRawFileContent = Utils::GetFileContent( std::format( "{}{}{}", Utils::k_sResoursesDir, a_sFilePath, a_sFileName ) );
+   const std::string sRawFileContent = std::invoke( [a_sFilePath, a_sFileName]
+   {
+      if( const auto result = MK::File::GetFileContent( a_sFilePath, a_sFileName ); result )
+      {
+         return result.value();
+      }
+      else
+      {
+         MKASSERT( false, "Failed to read model file {} with error {}", a_sFileName, result.error() );
+         return std::string{};
+      }
+   } );
    auto jRoot = json::parse( sRawFileContent );
 
    // read nodes recursively

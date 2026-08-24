@@ -44,6 +44,9 @@
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Link>
+    <Midl>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="OutputConfigName">
