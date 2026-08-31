@@ -1,8 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(LibraryDir)json\include;$(LibraryDir)GLFW\include;$(LibraryDir)Glad\include;$(LibraryDir)stb\include;$(LibraryDir)glm\include;$(LibraryDir)Utils\Include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(LibraryDir)GLFW\Bin\$(OutputConfigName)\;$(LibraryDir)Glad\Bin\$(OutputConfigName)\;$(LibraryDir)Utils\Bin\$(OutputConfigName)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glad.lib;glfw3.lib;Utils.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

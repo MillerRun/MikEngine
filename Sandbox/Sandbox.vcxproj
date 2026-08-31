@@ -48,21 +48,18 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Settings\PropertySheets\0_Base.props" />
-    <Import Project="..\Settings\PropertySheets\0_Includes.props" />
     <Import Project="..\Settings\PropertySheets\1_Game.props" />
     <Import Project="..\Settings\PropertySheets\2_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Settings\PropertySheets\0_Base.props" />
-    <Import Project="..\Settings\PropertySheets\0_Includes.props" />
     <Import Project="..\Settings\PropertySheets\1_Game.props" />
     <Import Project="..\Settings\PropertySheets\2_Release.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Settings\PropertySheets\0_Base.props" />
-    <Import Project="..\Settings\PropertySheets\0_Includes.props" />
     <Import Project="..\Settings\PropertySheets\1_Game.props" />
     <Import Project="..\Settings\PropertySheets\2_Develop.props" />
   </ImportGroup>
