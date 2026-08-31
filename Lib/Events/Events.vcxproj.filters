@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Event\Event.hpp">
+    <ClInclude Include="Include\Events\Event.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

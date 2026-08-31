@@ -92,7 +92,7 @@
     <ClCompile Include="Source\Event.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Event\Event.hpp" />
+    <ClInclude Include="Include\Events\Event.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
