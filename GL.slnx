@@ -10,7 +10,7 @@
   </Project>
   <Project Path="Lib/Glad/Glad.vcxproj" Id="a11815a0-a657-4dd0-aa94-0ec4ea28aeeb" />
   <Project Path="Lib/Utils/Utils.vcxproj" Id="b19cd9b4-3077-410b-8665-fa1a7cf8cf9d" />
-  <Project Path="Sandbox/Sandbox.vcxproj" Id="332816a5-b6b1-488e-a83a-56aba6a9bd5a">
+  <Project Path="Sandbox/Sandbox.vcxproj" Id="332816a5-b6b1-488e-a83a-56aba6a9bd5a" DefaultStartup="true">
     <BuildDependency Project="Lib/Events/Events.vcxproj" />
     <BuildDependency Project="Lib/Glad/Glad.vcxproj" />
     <BuildDependency Project="Lib/Utils/Utils.vcxproj" />
