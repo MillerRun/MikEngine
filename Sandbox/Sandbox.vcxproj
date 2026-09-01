@@ -118,6 +118,7 @@
     <ClInclude Include="Source\Include\Texture.hpp" />
     <ClInclude Include="Source\Include\VAO.hpp" />
     <ClInclude Include="Source\Include\Vertex.hpp" />
+    <ClInclude Include="Source\Private\Event\Input\ButtonEvents.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
