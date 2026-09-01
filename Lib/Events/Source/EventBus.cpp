@@ -22,4 +22,14 @@ namespace MK::Event
       CallbackGroup &callbacks = itGroup->second;
       callbacks.erase( a_iListenerIndex );
    }
+
+   void EventBus::Dispatch( const std::type_index a_EventID, const void *a_pArguments )
+   {
+      auto itGroup = m_mListenerGroups.find( a_EventID );
+      if( itGroup == m_mListenerGroups.end() )
+         return;
+
+      for( auto &[_, Callback] : itGroup->second )
+         Callback( a_pArguments );
+   }
 }

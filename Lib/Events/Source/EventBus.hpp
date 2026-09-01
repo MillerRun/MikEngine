@@ -16,19 +16,7 @@ namespace MK::Event
    public:
       [[nodiscard]] Token AddListener( const std::type_index a_EventID, std::function<void( const void * )> a_Listener );
       void RemoveListener( const std::type_index a_EventID, const std::size_t a_iListenerIndex );
-
-      template<typename TEventType>
-      void Dispatch( const TEventType &a_EventArguments )
-      {
-         const std::type_index id = typeid( TEventType );
-
-         auto itGroup = m_mListenerGroups.find( id );
-         if( itGroup == m_mListenerGroups.end() )
-            return;
-
-         for( auto &[_, Callback] : itGroup->second )
-            Callback( static_cast<const void *>( a_EventArguments ) );
-      }
+      void Dispatch( const std::type_index a_EventID, const void *a_pArguments );
 
    private:
       std::unordered_map<std::type_index, CallbackGroup> m_mListenerGroups;

@@ -1,11 +1,13 @@
 #pragma once
 
 #include <vector>
-
-#include "EventBus.hpp"
+#include <functional>
+#include <typeindex>
 
 namespace MK::Event
 {
+   struct Token;
+
    class IEventable
    {
    public:
@@ -35,9 +37,17 @@ namespace MK::Event
          this->ClearCallbacksFromBus( id );
       }
 
+      template<typename TEventType>
+      void Call( const TEventType &a_Arguments )
+      {
+         const std::type_index id = typeid( TEventType );
+         
+      }
+
    private:
-      void PassCallbackToBus( const std::type_index a_EventID, std::function<void( const void * )> a_WrappedCallback );
-      void ClearCallbacksFromBus( const std::type_index a_EventID );
+      void PassCallback( const std::type_index a_EventID, std::function<void( const void * )> a_WrappedCallback );
+      void ClearCallbacks( const std::type_index a_EventID );
+      void CallCallbacks( const std::type_index a_EventID, const void *a_pArguments );
 
    private:
       std::vector<Token> m_aSubscriptionTokens;
