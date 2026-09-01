@@ -10,7 +10,7 @@
     <ClCompile />
     <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\$(ProjectName)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\$(ProjectName)\;$(ProjectDir)Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

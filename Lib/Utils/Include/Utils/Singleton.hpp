@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Utils/Assert.hpp>
-
 namespace MK::Utils
 {
    template<typename T>
