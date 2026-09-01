@@ -41,7 +41,7 @@ namespace MK::Event
       void Call( const TEventType &a_Arguments )
       {
          const std::type_index id = typeid( TEventType );
-         
+         this->CallCallbacks( id, static_cast<const void *>( a_Arguments ) );
       }
 
    private:
