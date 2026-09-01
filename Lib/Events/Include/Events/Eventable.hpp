@@ -6,14 +6,14 @@
 
 namespace MK::Event
 {
-   class EventListener
+   class IEventable
    {
    public:
-      virtual ~EventListener();
-      EventListener( EventListener & )                      = default;
-      EventListener &operator=( EventListener & )           = default;
-      EventListener( EventListener && ) noexcept            = default;
-      EventListener &operator=( EventListener && ) noexcept = default;
+      virtual ~IEventable();
+      IEventable( IEventable & )                      = default;
+      IEventable &operator=( IEventable & )           = default;
+      IEventable( IEventable && ) noexcept            = default;
+      IEventable &operator=( IEventable && ) noexcept = default;
 
    public:
       

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Events\EventListener.hpp">
+    <ClInclude Include="Include\Events\Eventable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\EventBus.hpp">
@@ -29,7 +29,7 @@
     <ClCompile Include="Source\EventBus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EventListener.cpp">
+    <ClCompile Include="Source\Eventable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

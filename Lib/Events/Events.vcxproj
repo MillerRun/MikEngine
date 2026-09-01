@@ -92,13 +92,13 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Events\EventListener.hpp" />
+    <ClInclude Include="Include\Events\Eventable.hpp" />
     <ClInclude Include="Source\EventBus.hpp" />
     <ClInclude Include="Source\Token.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\EventBus.cpp" />
-    <ClCompile Include="Source\EventListener.cpp" />
+    <ClCompile Include="Source\Eventable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
