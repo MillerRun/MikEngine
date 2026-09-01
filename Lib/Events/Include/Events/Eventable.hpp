@@ -27,14 +27,14 @@ namespace MK::Event
          {
             callback( *static_cast<const TEventType *>( a_pData ) );
          };
-         this->PassCallbackToBus( id, wrappedCallback );
+         this->PassCallback( id, wrappedCallback );
       }
 
       template<typename TEventType>
       void Unsubsribe()
       {
          const std::type_index id = typeid( TEventType );
-         this->ClearCallbacksFromBus( id );
+         this->ClearCallbacks( id );
       }
 
       template<typename TEventType>
