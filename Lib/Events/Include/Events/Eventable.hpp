@@ -12,10 +12,12 @@ namespace MK::Event
    {
    public:
       virtual ~IEventable();
-      IEventable( IEventable & )                      = default;
-      IEventable &operator=( IEventable & )           = default;
-      IEventable( IEventable && ) noexcept            = default;
-      IEventable &operator=( IEventable && ) noexcept = default;
+
+      IEventable();
+      IEventable( IEventable & );
+      IEventable &operator=( IEventable & );
+      IEventable( IEventable && ) noexcept;
+      IEventable &operator=( IEventable && ) noexcept;
 
    public:
       
@@ -38,10 +40,10 @@ namespace MK::Event
       }
 
       template<typename TEventType>
-      void Call( const TEventType &a_Arguments )
+      void Call( const TEventType a_Arguments )
       {
          const std::type_index id = typeid( TEventType );
-         this->CallCallbacks( id, static_cast<const void *>( a_Arguments ) );
+         this->CallCallbacks( id, static_cast<const void *>( std::addressof( a_Arguments ) ) );
       }
 
    private:

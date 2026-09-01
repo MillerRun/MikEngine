@@ -3,6 +3,12 @@
 
 namespace MK::Event
 {
+   IEventable::IEventable() = default;
+   IEventable::IEventable( IEventable & ) = default;
+   IEventable &IEventable::operator=( IEventable & ) = default;
+   IEventable::IEventable( IEventable && ) noexcept = default;
+   IEventable &IEventable::operator=( IEventable && ) noexcept = default;
+
    IEventable::~IEventable()
    {
       // remove all listeners

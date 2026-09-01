@@ -5,11 +5,11 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(LibraryDir)json\include;$(LibraryDir)GLFW\include;$(LibraryDir)Glad\include;$(LibraryDir)stb\include;$(LibraryDir)glm\include;$(LibraryDir)Utils\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(LibraryDir)json\include;$(LibraryDir)GLFW\include;$(LibraryDir)Glad\include;$(LibraryDir)stb\include;$(LibraryDir)glm\include;$(LibraryDir)Utils\Include;$(LibraryDir)Events\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(LibraryDir)GLFW\Bin\$(OutputConfigName)\;$(LibraryDir)Glad\Bin\$(OutputConfigName)\;$(LibraryDir)Utils\Bin\$(OutputConfigName)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3.lib;Utils.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LibraryDir)GLFW\Bin\$(OutputConfigName)\;$(LibraryDir)Glad\Bin\$(OutputConfigName)\;$(LibraryDir)Utils\Bin\$(OutputConfigName)\;$(LibraryDir)Events\Bin\$(OutputConfigName)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glad.lib;glfw3.lib;Utils.lib;Events.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
