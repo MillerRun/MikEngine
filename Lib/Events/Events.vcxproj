@@ -17,28 +17,22 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{332816a5-b6b1-488e-a83a-56aba6a9bd5a}</ProjectGuid>
-    <RootNamespace>Sandbox</RootNamespace>
+    <ProjectGuid>{7e3658d4-3184-4c36-aba6-aa16a01ea6de}</ProjectGuid>
+    <RootNamespace>Events</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v145</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -47,78 +41,64 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Settings\PropertySheets\0_Base.props" />
-    <Import Project="..\Settings\PropertySheets\1_Game.props" />
-    <Import Project="..\Settings\PropertySheets\2_Debug.props" />
+    <Import Project="..\..\Settings\PropertySheets\0_Base.props" />
+    <Import Project="..\..\Settings\PropertySheets\1_Dependency.props" />
+    <Import Project="..\..\Settings\PropertySheets\1_UtilsUser.props" />
+    <Import Project="..\..\Settings\PropertySheets\2_Debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Settings\PropertySheets\0_Base.props" />
-    <Import Project="..\Settings\PropertySheets\1_Game.props" />
-    <Import Project="..\Settings\PropertySheets\2_Release.props" />
+    <Import Project="..\..\Settings\PropertySheets\0_Base.props" />
+    <Import Project="..\..\Settings\PropertySheets\1_Dependency.props" />
+    <Import Project="..\..\Settings\PropertySheets\1_UtilsUser.props" />
+    <Import Project="..\..\Settings\PropertySheets\2_Release.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Settings\PropertySheets\0_Base.props" />
-    <Import Project="..\Settings\PropertySheets\1_Game.props" />
-    <Import Project="..\Settings\PropertySheets\2_Develop.props" />
+    <Import Project="..\..\Settings\PropertySheets\0_Base.props" />
+    <Import Project="..\..\Settings\PropertySheets\1_Dependency.props" />
+    <Import Project="..\..\Settings\PropertySheets\1_UtilsUser.props" />
+    <Import Project="..\..\Settings\PropertySheets\2_Develop.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile />
-    <Link />
-    <ClCompile />
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Manifest>
+      <EnableSegmentHeap>true</EnableSegmentHeap>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile />
     <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <ClCompile />
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <Manifest>
+      <EnableSegmentHeap>true</EnableSegmentHeap>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">
     <ClCompile />
     <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <ClCompile />
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <Manifest>
+      <EnableSegmentHeap>true</EnableSegmentHeap>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp" />
-    <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Private\Camera.cpp" />
-    <ClCompile Include="Source\Private\Mesh.cpp" />
-    <ClCompile Include="Source\Private\Model.cpp" />
-    <ClCompile Include="Source\Private\Shader.cpp" />
-    <ClCompile Include="Source\Private\Texture.cpp" />
-    <ClCompile Include="Source\Private\VAO.cpp" />
+    <ClInclude Include="Include\Events\Eventable.hpp" />
+    <ClInclude Include="Source\EventBus.hpp" />
+    <ClInclude Include="Source\Token.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shaders\default.frag" />
-    <None Include="..\Resources\Shaders\default.vert" />
-    <None Include="..\Resources\Shaders\light.frag" />
-    <None Include="..\Resources\Shaders\light.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Include\Buffer.hpp" />
-    <ClInclude Include="Source\Include\Camera.hpp" />
-    <ClInclude Include="Source\Include\Common.hpp" />
-    <ClInclude Include="Source\Include\Mesh.hpp" />
-    <ClInclude Include="Source\Include\Model.hpp" />
-    <ClInclude Include="Source\Include\Shader.hpp" />
-    <ClInclude Include="Source\Include\Texture.hpp" />
-    <ClInclude Include="Source\Include\VAO.hpp" />
-    <ClInclude Include="Source\Include\Vertex.hpp" />
-    <ClInclude Include="Source\Private\Event\Input\ButtonEvents.hpp" />
+    <ClCompile Include="Source\EventBus.cpp" />
+    <ClCompile Include="Source\Eventable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Include">
       <UniqueIdentifier>{c6f02b1a-c2df-496a-a529-c1f29026634a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Private\Event">
+      <UniqueIdentifier>{cf433035-2343-4051-bec5-50b43e782fbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Private\Event\Input">
+      <UniqueIdentifier>{aac446ac-c394-4e9e-89c7-aefd55df81c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -90,6 +96,9 @@
     </ClInclude>
     <ClInclude Include="Source\Include\Vertex.hpp">
       <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Private\Event\Input\ButtonEvents.hpp">
+      <Filter>Source Files\Private\Event\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

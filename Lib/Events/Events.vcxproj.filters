@@ -15,27 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Utils\Assert.hpp">
+    <ClInclude Include="Include\Events\Eventable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Utils\File.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\pch.hpp">
+    <ClInclude Include="Source\EventBus.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Utils\Math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Utils\Singleton.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Token.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\File.cpp">
+    <ClCompile Include="Source\EventBus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\pch.cpp">
+    <ClCompile Include="Source\Eventable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
