@@ -4,11 +4,6 @@
 #include "Shader.hpp"
 
 #include <GLFW/glfw3.h>
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/rotate_vector.hpp>
-#include <glm/gtx/vector_angle.hpp>
 
 namespace
 {
@@ -31,7 +26,7 @@ void Camera::UpdateMatrix( const float a_fFovAngle, const float a_fNearPlane, co
 {
    const glm::mat4 v4View = glm::lookAt( m_v3Position, m_v3Position + m_v3Direction, k_v3UpDirection );
    const glm::mat4 v4Proj = glm::perspective( glm::radians( a_fFovAngle ), static_cast<float>( m_iWidth ) / m_iHeight, a_fNearPlane, a_fFarPlane );
-   m_m4Camera = v4Proj * v4View;
+   m_m4Camera = MK::Math::RemapForOpenGL( v4Proj ) * v4View;
 }
 
 void Camera::Inputs( GLFWwindow * const a_pWindow )
@@ -42,7 +37,7 @@ void Camera::Inputs( GLFWwindow * const a_pWindow )
    }
    if( glfwGetKey( a_pWindow, GLFW_KEY_A ) == GLFW_PRESS )
    {
-      m_v3Position += m_fSpeed * -glm::normalize( glm::cross( m_v3Direction, k_v3UpDirection ) );
+      m_v3Position += m_fSpeed * -glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) );
    }
    if( glfwGetKey( a_pWindow, GLFW_KEY_S ) == GLFW_PRESS )
    {
@@ -50,7 +45,7 @@ void Camera::Inputs( GLFWwindow * const a_pWindow )
    }
    if( glfwGetKey( a_pWindow, GLFW_KEY_D ) == GLFW_PRESS )
    {
-      m_v3Position += m_fSpeed * glm::normalize( glm::cross( m_v3Direction, k_v3UpDirection ) );;
+      m_v3Position += m_fSpeed * glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) );;
    }
 
    if( glfwGetKey( a_pWindow, GLFW_KEY_SPACE ) == GLFW_PRESS )
@@ -89,12 +84,12 @@ void Camera::Inputs( GLFWwindow * const a_pWindow )
          ,  m_fSensitivity * ( static_cast<float>( v2MousePosition.x ) - m_iHeight / 2.f ) / m_iHeight
       };
 
-      const glm::vec3 v3NewDirection = glm::rotate( m_v3Direction, glm::radians( -v2Rotation.x ), glm::normalize( glm::cross( m_v3Direction, k_v3UpDirection ) ) );
+      const glm::vec3 v3NewDirection = glm::rotate( m_v3Direction, glm::radians( v2Rotation.x ), glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) ) );
       if( glm::angle( v3NewDirection, k_v3UpDirection ) > glm::radians( 5.f ) and glm::angle( v3NewDirection, -k_v3UpDirection ) > glm::radians( 5.f ) )
       {
          m_v3Direction = v3NewDirection;
       }
-      m_v3Direction = glm::rotate( m_v3Direction, glm::radians( -v2Rotation.y ), k_v3UpDirection );
+      m_v3Direction = glm::rotate( m_v3Direction, glm::radians( v2Rotation.y ), k_v3UpDirection );
       glfwSetCursorPos( a_pWindow, m_iWidth / 2.f, m_iHeight / 2.f );
    }
    else if( glfwGetMouseButton( a_pWindow, GLFW_MOUSE_BUTTON_LEFT ) == GLFW_RELEASE )

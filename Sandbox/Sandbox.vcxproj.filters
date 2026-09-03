@@ -13,14 +13,20 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Public">
-      <UniqueIdentifier>{708c9648-f958-497c-9422-28a5882afcdd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Private">
       <UniqueIdentifier>{e806a6b3-02ca-4a0c-a1ff-11f88b8918ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{dea661c0-a35d-4fdc-ae33-37d1f5ed104a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Include">
+      <UniqueIdentifier>{c6f02b1a-c2df-496a-a529-c1f29026634a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Private\Event">
+      <UniqueIdentifier>{cf433035-2343-4051-bec5-50b43e782fbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Private\Event\Input">
+      <UniqueIdentifier>{aac446ac-c394-4e9e-89c7-aefd55df81c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,32 +51,9 @@
     <ClCompile Include="Source\Private\Mesh.cpp">
       <Filter>Source Files\Private</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Public\Shader.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Buffer.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\VAO.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Texture.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Camera.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Common.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Mesh.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Public\Vertex.hpp">
-      <Filter>Header Files\Public</Filter>
-    </ClInclude>
+    <ClCompile Include="Source\Private\Model.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shaders\default.frag">
@@ -85,5 +68,37 @@
     <None Include="..\Resources\Shaders\light.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Include\Buffer.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Camera.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Common.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Mesh.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Model.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Shader.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Texture.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\VAO.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Include\Vertex.hpp">
+      <Filter>Header Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Private\Event\Input\ButtonEvents.hpp">
+      <Filter>Source Files\Private\Event\Input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

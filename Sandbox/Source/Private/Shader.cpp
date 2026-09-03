@@ -1,6 +1,8 @@
 #include "Shader.hpp"
 
 #include "Common.hpp"
+#include "Utils/Assert.hpp"
+#include "Utils/File.hpp"
 
 #include <fstream>
 #include <string>
@@ -8,31 +10,26 @@
 
 namespace
 {
-   constexpr const char *k_sShadersPath = "../Resources/Shaders/";
    constexpr const char *k_sVertexShaderFileResolution = ".vert";
    constexpr const char *k_sFragmentShaderFileResolution = ".frag";
-
-   [[nodiscard]]
-   std::string GetFileContent( const std::string_view a_sFileName )
-   {
-      if( std::ifstream file{ std::string{ k_sShadersPath } + a_sFileName.data(), std::ios::binary } )
-      {
-         std::string sContent;
-         file.seekg( 0, std::ios::end );
-         sContent.resize( file.tellg() );
-         file.seekg( 0, std::ios::beg );
-         file.read( sContent.data(), sContent.size() );
-         return sContent;
-      }
-      const std::string sErrorMessage = "Failed to open shader file" + std::string{ k_sShadersPath } + std::string{ a_sFileName };
-      throw std::runtime_error( sErrorMessage );
-   }
+   constexpr const char *k_sShaderSubDir = "Shaders/";
 }
 
 Shader::Shader( const std::string_view a_sShaderName )
 {
-   const auto sVertexShaderContent = GetFileContent( a_sShaderName.data() + std::string{ k_sVertexShaderFileResolution } );
-   const auto sFragmentShaderContent = GetFileContent( a_sShaderName.data() + std::string{ k_sFragmentShaderFileResolution } );
+   const auto GetShaderContent = [a_sShaderName]( const std::string_view a_sResolution ) -> std::string
+   {
+      auto sFullShaderName = std::format( "{}{}", a_sShaderName, a_sResolution );
+      const auto result = MK::File::GetFileContent( k_sShaderSubDir, sFullShaderName );
+      if( !result )
+      {
+         MKASSERT( false, "Failed to read {} shader file with error {}", a_sShaderName, result.error() );
+         return {};
+      }
+      return result.value();
+   };
+   const auto sVertexShaderContent = GetShaderContent( k_sVertexShaderFileResolution );
+   const auto sFragmentShaderContent = GetShaderContent( k_sFragmentShaderFileResolution );
 
    // vertex shader
    const GLuint vs = glCreateShader( GL_VERTEX_SHADER );
@@ -89,7 +86,7 @@ void Shader::CheckForErrors( const GLuint a_iShaderID, const std::string_view a_
       {
          GLCHECK( glGetProgramInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
          std::println( stderr, "{}", sInfoMessage);
-         __debugbreak();
+         DEBUGBREAK();
       }
    }
    else
@@ -99,7 +96,7 @@ void Shader::CheckForErrors( const GLuint a_iShaderID, const std::string_view a_
       {
          GLCHECK( glGetShaderInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
          std::println( stderr, "{}", sInfoMessage );
-         __debugbreak();
+         DEBUGBREAK();
       }
    }
 }

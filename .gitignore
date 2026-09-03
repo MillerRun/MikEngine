@@ -6,3 +6,6 @@
 # Binaries
 **/Bin/
 **/Intermediate/
+
+#Library binaries to track
+!Lib/GLFW/Bin/

@@ -4,11 +4,11 @@
 #include "Shader.hpp"
 #include "Camera.hpp"
 #include "Mesh.hpp"
+#include "Model.hpp"
+#include "Utils/File.hpp"
 
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <Utils/Math.hpp>
 
 namespace
 {
@@ -18,6 +18,8 @@ namespace
 
 int main()
 {
+   MK::File::SetDefaultPath( "../Resources/" );
+
    // initialize GLFW
    glfwInit();
    glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -81,6 +83,8 @@ int main()
       4u, 6u, 7u,
    };
 
+   Model mdl( "bunny/", "scene.gltf" );
+
    const std::array aTextures =
    {
       Texture( "planks.png", Texture::EType::DIFFUSE, 0, GL_RGBA, GL_UNSIGNED_BYTE ),
@@ -100,9 +104,6 @@ int main()
       , std::vector<GLuint>( aLightIndicies.cbegin(), aLightIndicies.cend() )
       , std::vector<Texture>( aTextures.cbegin(), aTextures.cend() )
    };
-
-   //VAO lightVAO;
-   //lightVAO.Bind();
 
    glm::vec4 v4LightColor( 1.f, 1.0f, 1.0f, 0.f );
    glm::vec3 v4LightPosition( 0.5f, 0.5f, 0.5f );
