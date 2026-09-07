@@ -74,6 +74,9 @@
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(LibraryDir)json\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile />
@@ -90,10 +93,14 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Include\AssetLoader\CommonTypes.hpp" />
     <ClInclude Include="Include\AssetLoader\ModelLoader.hpp" />
+    <ClInclude Include="Source\Parser\Parser.hpp" />
+    <ClInclude Include="Source\Parser\ParserGLTF.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModelLoader.cpp" />
+    <ClCompile Include="Source\Parser\ParserGLTF.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

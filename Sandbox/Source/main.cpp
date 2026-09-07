@@ -9,6 +9,7 @@
 
 #include <GLFW/glfw3.h>
 #include <Utils/Math.hpp>
+#include <AssetLoader/ModelLoader.hpp>
 
 namespace
 {
@@ -84,6 +85,8 @@ int main()
    };
 
    Model mdl( "bunny/", "scene.gltf" );
+
+   std::ignore = MK::ModelLoader::Get().Load( "bunny/scene.gltf" );
 
    const std::array aTextures =
    {

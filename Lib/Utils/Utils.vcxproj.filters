@@ -30,12 +30,18 @@
     <ClInclude Include="Include\Utils\Singleton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Utils\Text.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Utils\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

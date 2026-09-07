@@ -13,15 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Parser">
+      <UniqueIdentifier>{0f94b9f3-2a58-4f30-909a-8e284b278434}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\AssetLoader\ModelLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Parser\Parser.hpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Parser\ParserGLTF.hpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\AssetLoader\CommonTypes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModelLoader.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Parser\ParserGLTF.cpp">
+      <Filter>Source Files\Parser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

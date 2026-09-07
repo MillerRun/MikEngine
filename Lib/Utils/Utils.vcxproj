@@ -111,9 +111,11 @@
     <ClInclude Include="Include\Utils\File.hpp" />
     <ClInclude Include="Include\Utils\Math.hpp" />
     <ClInclude Include="Include\Utils\Singleton.hpp" />
+    <ClInclude Include="Include\Utils\Text.hpp" />
     <ClInclude Include="Source\pch.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Include\Utils\Text.cpp" />
     <ClCompile Include="Source\File.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
