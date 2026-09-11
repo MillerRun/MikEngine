@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <expected>
 #include <format>
 #include <string>
@@ -47,6 +48,9 @@ namespace MK::File
       sResult.pop_back(); // remove separator on end
       return GetFileContent( sResult );
    }
+
+   [[nodiscard]]
+   auto GetBinaryFileContent( const std::string_view a_sFilePath ) -> std::expected<std::vector<std::byte>, EErrorCode>;
 
    [[nodiscard]]
    auto GetFileLocation( const std::string_view a_sFilePath ) -> std::string;

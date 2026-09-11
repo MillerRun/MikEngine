@@ -179,6 +179,24 @@ namespace
       return jRetValue; // TODO: check nrvo
    }
 
+   [[nodiscard]] auto LoadBuffer( const json &a_jDoc, const std::string_view a_sSourceDirectory, const std::size_t a_iBufferIndex ) -> std::expected<Buffer, std::string>
+   {
+      const auto itBuffers = a_jDoc.find( "buffers" );
+      if( itBuffers == a_jDoc.cend() or not itBuffers->is_array() or a_iBufferIndex >= itBuffers->size() )
+         return std::unexpected{ "invalid buffer index" };
+
+      const json &jBuffer = itBuffers->at( a_iBufferIndex );
+      const std::string sURI = jBuffer.value( "uri", "" );
+      if( sURI.empty() )
+         return std::unexpected{ "empty uri" };
+
+      std::expected buffer = MK::File::GetBinaryFileContent( MK::File::GetFileLocation( a_sSourceDirectory, sURI ) );
+      if( buffer )
+         return buffer.value();
+      else
+         return std::unexpected{ "failed to read buffer" };
+   }
+
    [[nodiscard]] auto LoadDocument( const std::string_view a_sPath ) -> std::expected<GltfDocument, std::string>
    {
       GltfDocument doc;
@@ -194,7 +212,19 @@ namespace
 
       doc.sSourceDirectory = MK::File::GetFileDirectory( a_sPath );
 
-      // doc.buffers
+      if( const auto itBuffersNode = doc.jSource.find( "buffers" ); itBuffersNode != doc.jSource.cend() and itBuffersNode->is_array() )
+      {
+         doc.aBuffers.reserve( itBuffersNode->size() );
+
+         for( auto i = 0uz, n = itBuffersNode->size(); i < n; ++i )
+         {
+            std::expected buffer = LoadBuffer( doc.jSource, doc.sSourceDirectory, i );
+            if( !buffer )
+               return std::unexpected{ buffer.error() };
+
+            doc.aBuffers.push_back( std::move( buffer.value() ) );
+         }
+      }
 
       return doc; // TODO: check nrvo
    }
@@ -337,7 +367,7 @@ namespace
 
       const Buffer &aBuffer = a_Doc.aBuffers[iBufferIndex ];
       const std::size_t iByteOffset = jView.value( "byteOffset", 0 );
-      const std::size_t iAccessorOffset = jView.value( "byteOffset", 0 );
+      const std::size_t iAccessorOffset = a_jAccessor.value( "byteOffset", 0 );
       const std::size_t iTotalOffset = iByteOffset + iAccessorOffset;
       if( iTotalOffset >= aBuffer.size() )
          return nullptr;
@@ -605,7 +635,7 @@ namespace
          const json &jNode = itNodes->at( i );
          MK::Node node = aRetVec[i];
 
-         if( const auto itTranslation = jNode.find( "translation" ); itTranslation != jNode.cend() && itTranslation->is_array() && itTranslation->size() == 3 )
+         if( const auto itTranslation = jNode.find( "translation" ); itTranslation != jNode.cend() and itTranslation->is_array() and itTranslation->size() == 3 )
          {
             node.v3Translation = glm::vec3{
                itTranslation->at( 0 ).get<float>(),
@@ -613,7 +643,7 @@ namespace
                itTranslation->at( 2 ).get<float>()
             };
          }
-         if( const auto itRotation = jNode.find( "rotation" ); itRotation != jNode.cend() && itRotation->is_array() && itRotation->size() == 4 )
+         if( const auto itRotation = jNode.find( "rotation" ); itRotation != jNode.cend() and itRotation->is_array() and itRotation->size() == 4 )
          {
             node.qRotation = glm::quat{
                itRotation->at( 3 ).get<float>(),
@@ -622,7 +652,7 @@ namespace
                itRotation->at( 2 ).get<float>()
             };
          }
-         if( const auto itScale = jNode.find( "scale" ); itScale != jNode.cend() && itScale->is_array() && itScale->size() == 3 )
+         if( const auto itScale = jNode.find( "scale" ); itScale != jNode.cend() and itScale->is_array() and itScale->size() == 3 )
          {
             node.v3Scale = glm::vec3{
                itScale->at( 0 ).get<float>(),
@@ -634,7 +664,7 @@ namespace
          {
             node.iMeshIndex = iMeshIndex;
          }
-         if( const auto itChildren = jNode.find( "children" ); itChildren != jNode.cend() && itChildren->is_array() )
+         if( const auto itChildren = jNode.find( "children" ); itChildren != jNode.cend() and itChildren->is_array() )
          {
             for( const json &jChild : *itChildren )
             {
