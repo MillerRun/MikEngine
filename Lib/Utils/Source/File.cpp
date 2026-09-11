@@ -100,6 +100,15 @@ namespace MK::File
       return std::unexpected{ EErrorCode::FAILED_TO_OPEN };
    }
 
+   auto GetFileLocation( const std::string_view a_sFilePath ) -> std::string
+   {
+      if( g_sDefaultPath.empty() )
+         return {};
+      
+      const std::filesystem::path sPath{ g_sDefaultPath / a_sFilePath };
+      return sPath.lexically_normal().string();
+   }
+
    auto GetFileDirectory( const std::string_view a_sFilePath ) -> std::string
    {
       if( GetFileExtension( a_sFilePath ).empty() )

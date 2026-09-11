@@ -49,6 +49,18 @@ namespace MK::File
    }
 
    [[nodiscard]]
+   auto GetFileLocation( const std::string_view a_sFilePath ) -> std::string;
+
+   template<CPathPart... TPathParams> requires( sizeof...( TPathParams ) >= 2 )
+   [[nodiscard]]
+   auto GetFileLocation( TPathParams&&... a_Params ) -> std::string
+   {
+      std::string sResult; ( ( sResult += a_Params, sResult += '/' ), ... );
+      sResult.pop_back(); // remove separator on end
+      return GetFileLocation( sResult );
+   }
+
+   [[nodiscard]]
    auto GetFileDirectory( const std::string_view a_sFilePath ) -> std::string;
 
    [[nodiscard]]

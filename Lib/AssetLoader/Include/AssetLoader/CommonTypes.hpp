@@ -10,7 +10,7 @@ namespace MK
    {
       glm::vec3 v3Position{};
       glm::vec3 v3Normal{};
-      glm::vec3 v2Texture{};
+      glm::vec2 v2Texture{};
       glm::vec3 v3Color{ 1.f };
    };
 
@@ -34,7 +34,7 @@ namespace MK
       glm::vec3 v3Translation{};
       glm::quat qRotation{ 1.f, 0.f, 0.f, 0.f };
       glm::vec3 v3Scale{ 1.f };
-      std::vector<std::size_t> aMeshIndices;
+      int iMeshIndex = -1;
       int iParentIndex = -1;
    };
 
