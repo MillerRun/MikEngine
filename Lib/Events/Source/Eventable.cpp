@@ -1,41 +1,80 @@
 #include "Eventable.hpp"
 #include "EventBus.hpp"
+#include <algorithm>
+#include <tuple>
 
 namespace MK::Event
 {
-   IEventable::IEventable() = default;
-   IEventable::IEventable( IEventable & ) = default;
-   IEventable &IEventable::operator=( IEventable & ) = default;
-   IEventable::IEventable( IEventable && ) noexcept = default;
-   IEventable &IEventable::operator=( IEventable && ) noexcept = default;
+   // Each constructor touches the bus, so it is fully constructed before any IEventable.
+   // Hence the bus is destroyed after all of them, including static ones.
+   IEventable::IEventable()
+   {
+      std::ignore = EventBus::Get();
+   }
+
+   // Callables capture the original 'this', so subscriptions are never copied or moved
+   IEventable::IEventable( const IEventable & )
+   {
+      std::ignore = EventBus::Get();
+   }
+
+   IEventable &IEventable::operator=( const IEventable & )
+   {
+      return *this;
+   }
+
+   IEventable::IEventable( IEventable && ) noexcept
+   {
+      std::ignore = EventBus::Get();
+   }
+
+   IEventable &IEventable::operator=( IEventable && ) noexcept
+   {
+      return *this;
+   }
 
    IEventable::~IEventable()
    {
-      // remove all listeners
-      m_aSubscriptionTokens.erase( std::remove_if( m_aSubscriptionTokens.begin(), m_aSubscriptionTokens.end(), []( const Token &a_Token )
-      {
-         EventBus::Get().RemoveListener( a_Token.EventID, a_Token.iCallbackIndex );
-         return true;
-      } ), m_aSubscriptionTokens.end() );
+      for( const Token &token : m_aSubscriptionTokens )
+         EventBus::Get().RemoveListener( token );
    }
 
-   void IEventable::PassCallback( const std::type_index a_EventID, std::function<void( const void * )> a_WrappedCallback )
+   void IEventable::Unsubscribe( const SubscriptionID a_ID )
    {
-      Token token = EventBus::Get().AddListener( a_EventID, a_WrappedCallback );
-      m_aSubscriptionTokens.push_back( std::move( token ) );
+      auto itToken = std::find_if( m_aSubscriptionTokens.begin(), m_aSubscriptionTokens.end(), [a_ID]( const Token &a_Token )
+      {
+         return a_Token.iCallbackIndex == a_ID;
+      } );
+      if( itToken == m_aSubscriptionTokens.end() )
+         return;
+
+      const Token token = *itToken;
+      m_aSubscriptionTokens.erase( itToken );
+      EventBus::Get().RemoveListener( token );
+   }
+
+   SubscriptionID IEventable::PassCallback( const std::type_index a_EventID, std::function<void( const void * )> a_WrappedCallback )
+   {
+      const Token token = EventBus::Get().AddListener( a_EventID, std::move( a_WrappedCallback ) );
+      m_aSubscriptionTokens.push_back( token );
+      return token.iCallbackIndex;
    }
 
    void IEventable::ClearCallbacks( const std::type_index a_EventID )
    {
-      m_aSubscriptionTokens.erase( std::remove_if( m_aSubscriptionTokens.begin(), m_aSubscriptionTokens.end(), [a_EventID]( const Token& a_Token )
+      // tokens are detached first, so removal can't observe a half-updated vector
+      std::vector<Token> aRemovedTokens;
+      std::erase_if( m_aSubscriptionTokens, [a_EventID, &aRemovedTokens]( const Token &a_Token )
       {
          if( a_Token.EventID != a_EventID )
             return false;
 
-         // remove listener from the bus as well
-         EventBus::Get().RemoveListener( a_Token.EventID, a_Token.iCallbackIndex );
+         aRemovedTokens.push_back( a_Token );
          return true;
-      } ), m_aSubscriptionTokens.end() );
+      } );
+
+      for( const Token &token : aRemovedTokens )
+         EventBus::Get().RemoveListener( token );
    }
 
    void IEventable::CallCallbacks( const std::type_index a_EventID, const void *a_pArguments )
