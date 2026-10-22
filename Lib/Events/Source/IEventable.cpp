@@ -1,7 +1,5 @@
-#include "Eventable.hpp"
+#include "IEventable.hpp"
 #include "EventBus.hpp"
-#include <algorithm>
-#include <tuple>
 
 namespace MK::Event
 {
