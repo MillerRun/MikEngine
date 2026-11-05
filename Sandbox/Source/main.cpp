@@ -1,10 +1,10 @@
 #include <print>
 #include <array>
 
-#include "Shader.hpp"
-#include "Camera.hpp"
-#include "Mesh.hpp"
-#include "Model.hpp"
+#include "Render/Shader.hpp"
+#include "Render/Camera.hpp"
+#include "Render/Mesh.hpp"
+#include "Render/Model.hpp"
 #include "Utils/File.hpp"
 
 #include <GLFW/glfw3.h>

@@ -68,9 +68,7 @@
     <ClCompile />
     <Link />
     <ClCompile />
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile />
@@ -78,9 +76,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile />
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">
     <ClCompile />
@@ -88,37 +84,29 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile />
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Private\Camera.cpp" />
-    <ClCompile Include="Source\Private\Mesh.cpp" />
-    <ClCompile Include="Source\Private\Model.cpp" />
-    <ClCompile Include="Source\Private\Shader.cpp" />
-    <ClCompile Include="Source\Private\Texture.cpp" />
-    <ClCompile Include="Source\Private\VAO.cpp" />
+    <ClCompile Include="Source\Render\Camera.cpp" />
+    <ClCompile Include="Source\Render\Mesh.cpp" />
+    <ClCompile Include="Source\Render\Model.cpp" />
+    <ClCompile Include="Source\Render\Shader.cpp" />
+    <ClCompile Include="Source\Render\Texture.cpp" />
+    <ClCompile Include="Source\Render\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shaders\default.frag" />
-    <None Include="..\Resources\Shaders\default.vert" />
-    <None Include="..\Resources\Shaders\light.frag" />
-    <None Include="..\Resources\Shaders\light.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Include\Buffer.hpp" />
-    <ClInclude Include="Source\Include\Camera.hpp" />
-    <ClInclude Include="Source\Include\Common.hpp" />
-    <ClInclude Include="Source\Include\Mesh.hpp" />
-    <ClInclude Include="Source\Include\Model.hpp" />
-    <ClInclude Include="Source\Include\Shader.hpp" />
-    <ClInclude Include="Source\Include\Texture.hpp" />
-    <ClInclude Include="Source\Include\VAO.hpp" />
-    <ClInclude Include="Source\Include\Vertex.hpp" />
-    <ClInclude Include="Source\Private\Event\Input\ButtonEvents.hpp" />
+    <ClInclude Include="Source\Common.hpp" />
+    <ClInclude Include="Source\Events\Input\ButtonEvents.hpp" />
+    <ClInclude Include="Source\Render\Buffer.hpp" />
+    <ClInclude Include="Source\Render\Camera.hpp" />
+    <ClInclude Include="Source\Render\Mesh.hpp" />
+    <ClInclude Include="Source\Render\Model.hpp" />
+    <ClInclude Include="Source\Render\Shader.hpp" />
+    <ClInclude Include="Source\Render\Texture.hpp" />
+    <ClInclude Include="Source\Render\VAO.hpp" />
+    <ClInclude Include="Source\Render\Vertex.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

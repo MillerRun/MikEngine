@@ -5,100 +5,72 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{9eda0b45-7318-4000-9859-74ea3d2eaa59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Source Files\Render">
+      <UniqueIdentifier>{1523ab54-6126-4cf6-beb4-a6a8608714e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Private">
-      <UniqueIdentifier>{e806a6b3-02ca-4a0c-a1ff-11f88b8918ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Shaders">
-      <UniqueIdentifier>{dea661c0-a35d-4fdc-ae33-37d1f5ed104a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Include">
-      <UniqueIdentifier>{c6f02b1a-c2df-496a-a529-c1f29026634a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Private\Event">
-      <UniqueIdentifier>{cf433035-2343-4051-bec5-50b43e782fbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Private\Event\Input">
-      <UniqueIdentifier>{aac446ac-c394-4e9e-89c7-aefd55df81c9}</UniqueIdentifier>
+    <Filter Include="Source Files\Events\Input">
+      <UniqueIdentifier>{36790443-1057-4cb3-9c57-7bc824ae2444}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Private\Shader.cpp">
-      <Filter>Source Files\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Private\Texture.cpp">
-      <Filter>Source Files\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Private\VAO.cpp">
-      <Filter>Source Files\Private</Filter>
-    </ClCompile>
     <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Private\Camera.cpp">
-      <Filter>Source Files\Private</Filter>
+    <ClCompile Include="Source\Render\Camera.cpp">
+      <Filter>Source Files\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Private\Mesh.cpp">
-      <Filter>Source Files\Private</Filter>
+    <ClCompile Include="Source\Render\Mesh.cpp">
+      <Filter>Source Files\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Private\Model.cpp">
-      <Filter>Source Files\Private</Filter>
+    <ClCompile Include="Source\Render\Model.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Shader.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Texture.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\VAO.cpp">
+      <Filter>Source Files\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shaders\default.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\default.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\light.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\light.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Include\Buffer.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Events\Input\ButtonEvents.hpp">
+      <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Camera.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Buffer.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Common.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Camera.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Mesh.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Mesh.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Model.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Model.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Shader.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Shader.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Texture.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Texture.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\VAO.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\VAO.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Include\Vertex.hpp">
-      <Filter>Header Files\Include</Filter>
+    <ClInclude Include="Source\Render\Vertex.hpp">
+      <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Private\Event\Input\ButtonEvents.hpp">
-      <Filter>Source Files\Private\Event\Input</Filter>
+    <ClInclude Include="Source\Common.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
