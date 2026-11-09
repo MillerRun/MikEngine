@@ -14,6 +14,9 @@
     <Filter Include="Source Files\Events\Input">
       <UniqueIdentifier>{36790443-1057-4cb3-9c57-7bc824ae2444}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{6c89a319-8991-413d-b15e-dcecfc98f45b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -42,6 +45,15 @@
     </ClCompile>
     <ClCompile Include="Source\Window.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\File.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Events\IEventable.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Events\EventBus.cpp">
+      <Filter>Source Files\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +95,27 @@
     </ClInclude>
     <ClInclude Include="Source\Events\Input\ButtonTypes.hpp">
       <Filter>Source Files\Events\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Assert.hpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\File.hpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Math.hpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Singleton.hpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\IEventable.hpp">
+      <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\EventBus.hpp">
+      <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\Token.hpp">
+      <Filter>Source Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -89,6 +89,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp" />
+    <ClCompile Include="Source\Events\EventBus.cpp" />
+    <ClCompile Include="Source\Events\IEventable.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Render\Camera.cpp" />
     <ClCompile Include="Source\Render\Mesh.cpp" />
@@ -96,11 +98,19 @@
     <ClCompile Include="Source\Render\Shader.cpp" />
     <ClCompile Include="Source\Render\Texture.cpp" />
     <ClCompile Include="Source\Render\VAO.cpp" />
+    <ClCompile Include="Source\Utils\File.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.hpp" />
+    <ClInclude Include="Source\Events\EventBus.hpp" />
+    <ClInclude Include="Source\Events\IEventable.hpp" />
     <ClInclude Include="Source\Events\Input\ButtonTypes.hpp" />
+    <ClInclude Include="Source\Events\Token.hpp" />
+    <ClInclude Include="Source\Utils\Assert.hpp" />
+    <ClInclude Include="Source\Utils\File.hpp" />
+    <ClInclude Include="Source\Utils\Math.hpp" />
+    <ClInclude Include="Source\Utils\Singleton.hpp" />
     <ClInclude Include="Source\Window.hpp" />
     <ClInclude Include="Source\Common.hpp" />
     <ClInclude Include="Source\Events\Input\ButtonEvents.hpp" />
