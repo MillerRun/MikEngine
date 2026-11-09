@@ -11,6 +11,10 @@
   <PropertyGroup>
     <OutDir>$(BinariesDir)</OutDir>
     <IntDir>$(IntermediateDir)</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <EnableASAN>true</EnableASAN>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

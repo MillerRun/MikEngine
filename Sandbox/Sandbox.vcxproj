@@ -25,6 +25,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>true</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -95,8 +96,12 @@
     <ClCompile Include="Source\Render\Shader.cpp" />
     <ClCompile Include="Source\Render\Texture.cpp" />
     <ClCompile Include="Source\Render\VAO.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Application.hpp" />
+    <ClInclude Include="Source\Events\Input\ButtonTypes.hpp" />
+    <ClInclude Include="Source\Window.hpp" />
     <ClInclude Include="Source\Common.hpp" />
     <ClInclude Include="Source\Events\Input\ButtonEvents.hpp" />
     <ClInclude Include="Source\Render\Buffer.hpp" />

@@ -1,11 +1,13 @@
 #pragma once
 
+#include "ButtonTypes.hpp"
+
 struct EventButtonPressed
 {
-   int iCode{};
+   MK::EButton eCode{};
 };
 
 struct EventButtonReleased
 {
-   int iCode{};
+   MK::EButton eCode{};
 };

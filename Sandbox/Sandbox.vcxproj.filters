@@ -40,6 +40,9 @@
     <ClCompile Include="Source\Render\VAO.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Events\Input\ButtonEvents.hpp">
@@ -69,8 +72,17 @@
     <ClInclude Include="Source\Render\Vertex.hpp">
       <Filter>Source Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Common.hpp">
+    <ClInclude Include="Source\Application.hpp">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Window.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common.hpp">
+      <Filter>Source Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\Input\ButtonTypes.hpp">
+      <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
