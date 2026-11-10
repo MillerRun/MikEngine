@@ -184,12 +184,6 @@ namespace MK
       return glfwWindowShouldClose( m_pWindow );
    }
 
-   auto Window::IsButtonHeld( const EButton a_eButton ) const -> bool
-   {
-      const auto fCurrentTiming = m_aButtonHeldTimings[std::to_underlying( a_eButton )];
-      return fCurrentTiming >= k_fHoldThresholdSec;
-   }
-
    void Window::SwapBuffers()
    {
       glfwSwapBuffers( m_pWindow );
@@ -202,7 +196,7 @@ namespace MK
 
    void Window::Update( const float dt )
    {
-      for( auto &fTimer : m_aButtonHeldTimings )
+      for( auto &fTimer : keyboard.m_aButtonHeldTimings )
       {
          if( fTimer > 0.f )
             fTimer += dt;
@@ -232,11 +226,11 @@ namespace MK
 
    void Window::OnButtonPressed( const EButton a_eButton )
    {
-      m_aButtonHeldTimings[std::to_underlying( a_eButton )] = .01f;
+      keyboard.m_aButtonHeldTimings[std::to_underlying( a_eButton )] = .01f;
    }
 
    void Window::OnButtonReleased( const EButton a_eButton )
    {
-      m_aButtonHeldTimings[std::to_underlying( a_eButton )] = 0.f;
+      keyboard.m_aButtonHeldTimings[std::to_underlying( a_eButton )] = 0.f;
    }
 }

@@ -55,6 +55,9 @@
     <ClCompile Include="Source\Events\EventBus.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Events\Input\IKeyboardListener.cpp">
+      <Filter>Source Files\Events\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Events\Input\ButtonEvents.hpp">
@@ -116,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="Source\Events\Token.hpp">
       <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\Input\IKeyboardListener.hpp">
+      <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
