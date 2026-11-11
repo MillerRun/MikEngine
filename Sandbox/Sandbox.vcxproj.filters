@@ -55,7 +55,7 @@
     <ClCompile Include="Source\Events\EventBus.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Events\Input\IKeyboardListener.cpp">
+    <ClCompile Include="Source\Events\Input\InputListener.cpp">
       <Filter>Source Files\Events\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\Application.cpp">
@@ -120,7 +120,7 @@
     <ClInclude Include="Source\Events\Token.hpp">
       <Filter>Source Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Events\Input\IKeyboardListener.hpp">
+    <ClInclude Include="Source\Events\Input\InputListener.hpp">
       <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utils\Singleton.hpp">

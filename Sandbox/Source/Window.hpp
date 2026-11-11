@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Events/Input/IKeyboardListener.hpp>
+#include <Events/Input/InputListener.hpp>
 #include <Events/Input/ButtonTypes.hpp>
 #include <glm/ext/vector_int2.hpp>
 
@@ -8,7 +8,7 @@ struct GLFWwindow;
 
 namespace MK
 {
-   class Window final : public MK::Event::IKeyboardListener
+   class Window final : public MK::Event::InputListener
    {
    public:
       Window();

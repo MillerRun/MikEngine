@@ -9,7 +9,7 @@ namespace MK
 
 namespace MK::Event
 {
-   class IKeyboardListener : public IEventable // IEventable for access to ButtonEvents
+   class InputListener : public IEventable // IEventable for access to ButtonEvents
    {
    private:
       friend class MK::Window;
