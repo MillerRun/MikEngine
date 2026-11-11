@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Events/IEventable.hpp"
 #include "Events/Input/ButtonEvents.hpp"
 #include <array>

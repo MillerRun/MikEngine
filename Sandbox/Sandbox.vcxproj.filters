@@ -126,5 +126,11 @@
     <ClInclude Include="Source\Utils\Singleton.hpp">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Events\Input\MouseEvents.hpp">
+      <Filter>Source Files\Events\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\Input\MouseTypes.hpp">
+      <Filter>Source Files\Events\Input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

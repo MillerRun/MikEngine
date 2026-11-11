@@ -2,15 +2,15 @@
 
 #include <format>
 
-#include <Events/Input/ButtonEvents.hpp>
-#include <GLFW/glfw3.h>
-#include <Utils/Assert.hpp>
+#include "Events/Input/ButtonEvents.hpp"
+#include "Events/Input/MouseEvents.hpp"
+#include "Utils/Assert.hpp"
+#include <glfw/glfw3.h>
 
 namespace
 {
    constexpr int k_iWindowWidth = 800;
    constexpr int k_iWindowHeight = 800;
-   constexpr float k_fHoldThresholdSec = .3f;
 
    [[nodiscard]] constexpr
    auto KeyEnumFromMacro( const int a_iKeyMacro ) -> MK::EButton
@@ -139,6 +139,23 @@ namespace
       case GLFW_KEY_MENU: return MK::EButton::MENU;
       default: return MK::EButton::MAX_OR_UNKNOWN;
       }
+   }
+
+   [[nodiscard]] constexpr
+   auto MouseEnumFromMacro( const int a_iKeyMacro ) -> MK::EMouseButton
+   {
+     switch( a_iKeyMacro )
+     {
+     case GLFW_MOUSE_BUTTON_LEFT: return MK::EMouseButton::LEFT;
+     case GLFW_MOUSE_BUTTON_RIGHT: return MK::EMouseButton::RIGHT;
+     case GLFW_MOUSE_BUTTON_MIDDLE: return MK::EMouseButton::MIDDLE;
+     case GLFW_MOUSE_BUTTON_4: return MK::EMouseButton::BUTTON_4;
+     case GLFW_MOUSE_BUTTON_5: return MK::EMouseButton::BUTTON_5;
+     case GLFW_MOUSE_BUTTON_6: return MK::EMouseButton::BUTTON_6;
+     case GLFW_MOUSE_BUTTON_7: return MK::EMouseButton::BUTTON_7;
+     case GLFW_MOUSE_BUTTON_8: return MK::EMouseButton::BUTTON_8;
+     default: return MK::EMouseButton::MAX_OR_UNKNOWN;
+     }
    }
 }
 

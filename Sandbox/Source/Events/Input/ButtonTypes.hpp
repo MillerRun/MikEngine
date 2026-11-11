@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstddef>
+
 namespace MK
 {
    enum class EButton : std::size_t
