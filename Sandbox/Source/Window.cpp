@@ -174,7 +174,7 @@ namespace MK
       glfwTerminate();
    }
 
-   auto Window::GetSize() const -> glm::ivec2
+   auto Window::Size() const -> glm::ivec2
    {
       return { k_iWindowWidth, k_iWindowHeight };
    }

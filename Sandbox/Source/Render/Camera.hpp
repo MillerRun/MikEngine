@@ -10,6 +10,7 @@ class Camera
 public:
    explicit Camera( const int a_iWidth, const int a_iHeight, glm::vec3 a_v3Position );
 
+   void Update( const float dt );
    void Matrix( const Shader &a_Shader, const char *const a_sUniform );
    void UpdateMatrix( const float a_fFovAngle, const float a_fNearPlane, const float a_fFarPlane );
    void Inputs( GLFWwindow *a_pWindow );

@@ -1,5 +1,5 @@
 #include "Events/IEventable.hpp"
-#include "Events/Input/ButtonTypes.hpp"
+#include "Events/Input/ButtonEvents.hpp"
 #include <array>
 
 namespace MK
@@ -9,7 +9,7 @@ namespace MK
 
 namespace MK::Event
 {
-   class IKeyboardListener : public IEventable
+   class IKeyboardListener : public IEventable // IEventable for access to ButtonEvents
    {
    private:
       friend class MK::Window;

@@ -19,11 +19,12 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{332816a5-b6b1-488e-a83a-56aba6a9bd5a}</ProjectGuid>
     <RootNamespace>Sandbox</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <EnableASAN>true</EnableASAN>
   </PropertyGroup>
@@ -89,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Lib\stb\include\stb\stb_impl.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Events\EventBus.cpp" />
     <ClCompile Include="Source\Events\IEventable.cpp" />
     <ClCompile Include="Source\Events\Input\IKeyboardListener.cpp" />

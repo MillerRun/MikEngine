@@ -4,8 +4,6 @@
 #include <Events/Input/ButtonTypes.hpp>
 #include <glm/ext/vector_int2.hpp>
 
-#include <array>
-
 struct GLFWwindow;
 
 namespace MK
@@ -20,7 +18,7 @@ namespace MK
       void operator=( const Window&) = delete;
 
    public:
-      [[nodiscard]] auto GetSize() const -> glm::ivec2;
+      [[nodiscard]] auto Size() const -> glm::ivec2;
       [[nodiscard]] auto ShouldClose() const -> bool;
       void SwapBuffers();
       void PollEvents();

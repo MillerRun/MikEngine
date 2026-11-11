@@ -58,6 +58,9 @@
     <ClCompile Include="Source\Events\Input\IKeyboardListener.cpp">
       <Filter>Source Files\Events\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Events\Input\ButtonEvents.hpp">
@@ -108,9 +111,6 @@
     <ClInclude Include="Source\Utils\Math.hpp">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Utils\Singleton.hpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Events\IEventable.hpp">
       <Filter>Source Files\Events</Filter>
     </ClInclude>
@@ -122,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Source\Events\Input\IKeyboardListener.hpp">
       <Filter>Source Files\Events\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Singleton.hpp">
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

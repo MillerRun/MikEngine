@@ -17,6 +17,11 @@ Camera::Camera( const int a_iWidth, const int a_iHeight, const glm::vec3 a_v3Pos
 {
 }
 
+void Camera::Update( const float dt )
+{
+  
+}
+
 void Camera::Matrix( const Shader &a_Shader, const char *const a_sUniform )
 {
    GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniform ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
