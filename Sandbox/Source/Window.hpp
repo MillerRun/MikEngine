@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Events/Input/InputListener.hpp>
-#include <Events/Input/ButtonTypes.hpp>
 #include <glm/ext/vector_int2.hpp>
 
 struct GLFWwindow;
@@ -14,8 +13,8 @@ namespace MK
       Window();
       ~Window();
 
-      Window( const Window&) = delete;
-      void operator=( const Window&) = delete;
+      Window( const Window & ) = delete;
+      void operator=( const Window & ) = delete;
 
    public:
       [[nodiscard]] auto Size() const -> glm::ivec2;
@@ -26,8 +25,10 @@ namespace MK
 
    private:
       void KeyCallback( GLFWwindow *const a_pWindow, const int a_iKey, const int a_iScanCode, const int a_iAction, const int a_iMods );
-      void OnButtonPressed( const EButton a_eButton );
-      void OnButtonReleased( const EButton a_eButton );
+      void MouseButtonCallback( GLFWwindow *const a_pWindow, const int a_iButton, const int a_iAction, const int a_iMods );
+      void CursorPositionCallback( GLFWwindow *const a_pWindow, const double a_dX, const double a_dY );
+      void CursorEnterCallback( GLFWwindow *const a_pWindow, const int a_iEntered );
+      void ScrollCallback( GLFWwindow *const a_pWindow, const double a_dOffsetX, const double a_dOffsetY );
 
    private:
       GLFWwindow *m_pWindow = nullptr;

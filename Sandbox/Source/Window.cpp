@@ -182,11 +182,39 @@ namespace MK
          if( auto pWindow = static_cast<MK::Window *>( glfwGetWindowUserPointer( a_pWindow ) ) ) [[likely]]
             pWindow->KeyCallback( a_pWindow, a_iKey, a_iScanCode, a_iAction, a_iMods );
       } );
+
+      glfwSetMouseButtonCallback( m_pWindow, []( GLFWwindow *const a_pWindow, const int a_iButton, const int a_iAction, const int a_iMods )
+      {
+         if( auto pWindow = static_cast<MK::Window *>( glfwGetWindowUserPointer( a_pWindow ) ) ) [[likely]]
+            pWindow->MouseButtonCallback( a_pWindow, a_iButton, a_iAction, a_iMods );
+      } );
+
+      glfwSetCursorPosCallback( m_pWindow, []( GLFWwindow *const a_pWindow, const double a_dX, const double a_dY )
+      {
+         if( auto pWindow = static_cast<MK::Window *>( glfwGetWindowUserPointer( a_pWindow ) ) ) [[likely]]
+            pWindow->CursorPositionCallback( a_pWindow, a_dX, a_dY );
+      } );
+
+      glfwSetCursorEnterCallback( m_pWindow, []( GLFWwindow *const a_pWindow, const int a_iEntered )
+      {
+         if( auto pWindow = static_cast<MK::Window *>( glfwGetWindowUserPointer( a_pWindow ) ) ) [[likely]]
+            pWindow->CursorEnterCallback( a_pWindow, a_iEntered );
+      } );
+
+      glfwSetScrollCallback( m_pWindow, []( GLFWwindow *const a_pWindow, const double a_dOffsetX, const double a_dOffsetY )
+      {
+         if( auto pWindow = static_cast<MK::Window *>( glfwGetWindowUserPointer( a_pWindow ) ) ) [[likely]]
+            pWindow->ScrollCallback( a_pWindow, a_dOffsetX, a_dOffsetY );
+      } );
    }
 
    Window::~Window()
    {
       glfwSetKeyCallback( m_pWindow, nullptr );
+      glfwSetMouseButtonCallback( m_pWindow, nullptr );
+      glfwSetCursorPosCallback( m_pWindow, nullptr );
+      glfwSetCursorEnterCallback( m_pWindow, nullptr );
+      glfwSetScrollCallback( m_pWindow, nullptr );
       glfwDestroyWindow( m_pWindow );
       glfwTerminate();
    }
@@ -208,16 +236,17 @@ namespace MK
 
    void Window::PollEvents()
    {
+      // per-frame accumulators
+      mouse.m_v2Delta = glm::vec2( 0.f );
+      mouse.m_v2Scroll = glm::vec2( 0.f );
+
       glfwPollEvents();
    }
 
    void Window::Update( const float dt )
    {
-      for( auto &fTimer : keyboard.m_aButtonHeldTimings )
-      {
-         if( fTimer > 0.f )
-            fTimer += dt;
-      }
+      keyboard.Update( dt );
+      mouse.Update( dt );
    }
 
    void Window::KeyCallback( GLFWwindow *const a_pWindow, const int a_iKey, const int a_iScanCode, const int a_iAction, const int a_iMods )
@@ -231,23 +260,59 @@ namespace MK
 
       if( a_iAction == GLFW_PRESS )
       {
-         this->OnButtonPressed( eButton );
+         keyboard.Press( eButton );
          this->Call<EventButtonPressed>( EventButtonPressed{ .eCode = eButton } );
       }
       else if( a_iAction == GLFW_RELEASE )
       {
-         this->OnButtonReleased( eButton );
+         keyboard.Release( eButton );
          this->Call<EventButtonReleased>( EventButtonReleased{ .eCode = eButton } );
       }
    }
 
-   void Window::OnButtonPressed( const EButton a_eButton )
+   void Window::MouseButtonCallback( GLFWwindow *const a_pWindow, const int a_iButton, const int a_iAction, const int a_iMods )
    {
-      keyboard.m_aButtonHeldTimings[std::to_underlying( a_eButton )] = .01f;
+      const auto eButton = MouseEnumFromMacro( a_iButton );
+      if( eButton == EMouseButton::MAX_OR_UNKNOWN ) [[unlikely]]
+      {
+         MKASSERT( false, "Unknown mouse button pressed: {}", a_iButton );
+         return;
+      }
+
+      if( a_iAction == GLFW_PRESS )
+      {
+         mouse.Press( eButton );
+         this->Call<EventMousePressed>( EventMousePressed{ .eCode = eButton } );
+      }
+      else if( a_iAction == GLFW_RELEASE )
+      {
+         mouse.Release( eButton );
+         this->Call<EventMouseReleased>( EventMouseReleased{ .eCode = eButton } );
+      }
    }
 
-   void Window::OnButtonReleased( const EButton a_eButton )
+   void Window::CursorPositionCallback( GLFWwindow *const a_pWindow, const double a_dX, const double a_dY )
    {
-      keyboard.m_aButtonHeldTimings[std::to_underlying( a_eButton )] = 0.f;
+      const glm::vec2 v2Position( static_cast<float>( a_dX ), static_cast<float>( a_dY ) );
+      const glm::vec2 v2Delta = mouse.m_bHasPosition ? v2Position - mouse.m_v2Position : glm::vec2( 0.f );
+
+      mouse.m_v2Position = v2Position;
+      mouse.m_v2Delta += v2Delta;
+      mouse.m_bHasPosition = true;
+
+      this->Call<EventMouseMoved>( EventMouseMoved{ .v2Position = v2Position, .v2Delta = v2Delta } );
+   }
+
+   void Window::CursorEnterCallback( GLFWwindow *const a_pWindow, const int a_iEntered )
+   {
+      if( a_iEntered == GLFW_TRUE )
+         mouse.m_bHasPosition = false;
+   }
+
+   void Window::ScrollCallback( GLFWwindow *const a_pWindow, const double a_dOffsetX, const double a_dOffsetY )
+   {
+      const glm::vec2 v2Offset( static_cast<float>( a_dOffsetX ), static_cast<float>( a_dOffsetY ) );
+      mouse.m_v2Scroll += v2Offset;
+      this->Call<EventMouseScrolled>( EventMouseScrolled{ .v2Offset = v2Offset } );
    }
 }
