@@ -144,18 +144,18 @@ namespace
    [[nodiscard]] constexpr
    auto MouseEnumFromMacro( const int a_iKeyMacro ) -> MK::EMouseButton
    {
-     switch( a_iKeyMacro )
-     {
-     case GLFW_MOUSE_BUTTON_LEFT: return MK::EMouseButton::LEFT;
-     case GLFW_MOUSE_BUTTON_RIGHT: return MK::EMouseButton::RIGHT;
-     case GLFW_MOUSE_BUTTON_MIDDLE: return MK::EMouseButton::MIDDLE;
-     case GLFW_MOUSE_BUTTON_4: return MK::EMouseButton::BUTTON_4;
-     case GLFW_MOUSE_BUTTON_5: return MK::EMouseButton::BUTTON_5;
-     case GLFW_MOUSE_BUTTON_6: return MK::EMouseButton::BUTTON_6;
-     case GLFW_MOUSE_BUTTON_7: return MK::EMouseButton::BUTTON_7;
-     case GLFW_MOUSE_BUTTON_8: return MK::EMouseButton::BUTTON_8;
-     default: return MK::EMouseButton::MAX_OR_UNKNOWN;
-     }
+      switch( a_iKeyMacro )
+      {
+      case GLFW_MOUSE_BUTTON_LEFT: return MK::EMouseButton::LEFT;
+      case GLFW_MOUSE_BUTTON_RIGHT: return MK::EMouseButton::RIGHT;
+      case GLFW_MOUSE_BUTTON_MIDDLE: return MK::EMouseButton::MIDDLE;
+      case GLFW_MOUSE_BUTTON_4: return MK::EMouseButton::BUTTON_4;
+      case GLFW_MOUSE_BUTTON_5: return MK::EMouseButton::BUTTON_5;
+      case GLFW_MOUSE_BUTTON_6: return MK::EMouseButton::BUTTON_6;
+      case GLFW_MOUSE_BUTTON_7: return MK::EMouseButton::BUTTON_7;
+      case GLFW_MOUSE_BUTTON_8: return MK::EMouseButton::BUTTON_8;
+      default: return MK::EMouseButton::MAX_OR_UNKNOWN;
+      }
    }
 }
 

@@ -10,8 +10,8 @@ class Camera;
 
 struct SceneObjectInfo
 {
-   glm::vec3 v3Translation;
-   glm::quat qRotation;
+   glm::vec3 v3Translation{};
+   glm::quat qRotation{};
    glm::vec3 v3Scale = glm::vec3( 1.f, 1.f, 1.f );
    glm::mat4 m4WorldTransform = glm::mat4( 1.f );
    std::int32_t iParentIndex = -1;
