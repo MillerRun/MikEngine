@@ -5,6 +5,7 @@
 #include "Utils/File.hpp"
 
 #include <string>
+#include <print>
 
 namespace
 {
@@ -12,28 +13,31 @@ namespace
    constexpr const char *k_sFragmentShaderFileResolution = ".frag";
    constexpr const char *k_sShaderSubDir = "Shaders/";
 
-   void CheckForErrors( const GLuint a_iShaderID, const std::string_view a_sShaderType )
+   void CheckLinkStatus( const GLuint a_iID )
    {
       GLint bHasCompiled = 1;
       char sInfoMessage[1024]{};
 
-      if( a_sShaderType == "PROGRAM" )
+      GLCHECK( glGetProgramiv( a_iID, GL_LINK_STATUS, &bHasCompiled ) );
+      if( bHasCompiled == GL_FALSE )
       {
-         GLCHECK( glGetProgramiv( a_iShaderID, GL_LINK_STATUS, &bHasCompiled ) );
-         if( bHasCompiled == GL_FALSE )
-         {
-            GLCHECK( glGetProgramInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
-            MKASSERT( false, "{}", sInfoMessage);
-         }
+         GLCHECK( glGetProgramInfoLog( a_iID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
+         std::println( stderr, "{}", sInfoMessage );
+         DEBUGBREAK();
       }
-      else
+   }
+
+   void CheckCompileStatus( const GLuint a_iID )
+   {
+      GLint bHasCompiled = 1;
+      char sInfoMessage[1024]{};
+
+      GLCHECK( glGetShaderiv( a_iID, GL_COMPILE_STATUS, &bHasCompiled ) );
+      if( bHasCompiled == GL_FALSE )
       {
-         GLCHECK( glGetShaderiv( a_iShaderID, GL_COMPILE_STATUS, &bHasCompiled ) );
-         if( bHasCompiled == GL_FALSE )
-         {
-            GLCHECK( glGetShaderInfoLog( a_iShaderID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
-            MKASSERT( false, "{}", sInfoMessage );
-         }
+         GLCHECK( glGetShaderInfoLog( a_iID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
+         std::println( stderr, "{}", sInfoMessage );
+         DEBUGBREAK();
       }
    }
 }
@@ -41,6 +45,7 @@ namespace
 namespace MK::Render
 {
    Shader::Shader( const std::string_view a_sShaderName )
+      : m_Program{ glCreateProgram() }
    {
       const auto GetShaderContent = [a_sShaderName]( const std::string_view a_sResolution ) -> std::string
       {
@@ -61,21 +66,20 @@ namespace MK::Render
       const char *sVertexSource = sVertexShaderContent.c_str();
       GLCHECK( glShaderSource( vs, 1, &sVertexSource, nullptr ) ); // 1 screen for the shader
       GLCHECK( glCompileShader( vs ) );
-      CheckForErrors( vs, "VERTEX" );
+      CheckCompileStatus( vs );
 
       // fragment shader
       const GLuint fs = glCreateShader( GL_FRAGMENT_SHADER );
       const char *sFragmentSource = sFragmentShaderContent.c_str();
       GLCHECK( glShaderSource( fs, 1, &sFragmentSource, nullptr ) );
       GLCHECK( glCompileShader( fs ) );
-      CheckForErrors( fs, "FRAGMENT" );
+      CheckCompileStatus( fs );
 
       // create program
-      m_Program = ProgramHandle{ glCreateProgram() };
       GLCHECK( glAttachShader( this->Get(), vs ) ); // attach vertex shader
       GLCHECK( glAttachShader( this->Get(), fs ) ); // attach fragment shader
       GLCHECK( glLinkProgram( this->Get() ) ); // assemble program
-      CheckForErrors( this->Get(), "PROGRAM" );
+      CheckLinkStatus( this->Get() );
 
       // delete shaders, because program contains them already
       GLCHECK( glDetachShader( this->Get(), vs ) );
@@ -84,7 +88,7 @@ namespace MK::Render
       GLCHECK( glDeleteShader( fs ) );
    }
 
-   void Shader::Activate()
+   void Shader::Activate() const
    {
       GLCHECK( glUseProgram( this->Get() ) );
    }

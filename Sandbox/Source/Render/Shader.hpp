@@ -9,7 +9,7 @@ namespace MK::Render
    {
    public:
       explicit Shader( const std::string_view a_sShaderName );
-      void Activate();
+      void Activate() const;
       [[nodiscard]] auto Get() const noexcept -> Handle;
 
    private:
