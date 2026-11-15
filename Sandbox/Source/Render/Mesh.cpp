@@ -25,7 +25,7 @@ Mesh::Mesh( std::vector<Vertex> a_aVertices, std::vector<GLuint> a_aIndices, std
    ebo.Unbind();
 }
 
-void Mesh::Draw( Shader &a_Shader, Camera &a_Camera )
+void Mesh::Draw( Shader &a_Shader, MK::Camera &a_Camera )
 {
    a_Shader.Activate();
    m_VAO.Bind();

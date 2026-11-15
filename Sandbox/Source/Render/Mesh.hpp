@@ -6,14 +6,17 @@
 #include "Texture.hpp"
 
 class Shader;
-class Camera;
+namespace MK
+{
+   class Camera;
+}
 
 class Mesh
 {
 public:
    explicit Mesh( std::vector<Vertex> a_aVertices, std::vector<GLuint> a_aIndices, std::vector<Texture> a_aTextures );
 
-   void Draw( Shader &a_Shader, Camera &a_Camera );
+   void Draw( Shader &a_Shader, MK::Camera &a_Camera );
 
 private:
    std::vector<Vertex> m_aVertices;

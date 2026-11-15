@@ -19,7 +19,7 @@ namespace MK
   }
 
   Application::Application()
-    : m_hCamera( m_hWindow.Size().x, m_hWindow.Size().y, glm::vec3( 0.f, 1.f, 2.f ) )
+    : m_hCamera( m_hWindow.Size(), glm::vec3( 0.f, 1.f, 2.f ) )
   {
     MK::File::SetDefaultPath( "../Resources/" );
 
@@ -137,6 +137,7 @@ namespace MK
   void Application::Update( const float dt )
   {
     m_hWindow.Update( dt );
+    m_hCamera.Update( dt );
     m_hCamera.UpdateMatrix( 45.f, 0.1f, 100.f );
   }
 

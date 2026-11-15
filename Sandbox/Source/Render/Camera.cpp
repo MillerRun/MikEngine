@@ -2,109 +2,96 @@
 
 #include "Common.hpp"
 #include "Shader.hpp"
-
-#include <GLFW/glfw3.h>
+#include <algorithm>
 
 namespace
 {
    constexpr glm::vec3 k_v3UpDirection{ 0.f, 1.f, 0.f };
+   constexpr float k_fSprintMultiplier = 5.f;
 }
 
-Camera::Camera( const int a_iWidth, const int a_iHeight, const glm::vec3 a_v3Position )
-   : m_iWidth( a_iWidth )
-   , m_iHeight( a_iHeight )
-   , m_v3Position( a_v3Position )
+namespace MK
 {
-}
-
-void Camera::Update( const float dt )
-{
-  
-}
-
-void Camera::Matrix( const Shader &a_Shader, const char *const a_sUniform )
-{
-   GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniform ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
-}
-
-void Camera::UpdateMatrix( const float a_fFovAngle, const float a_fNearPlane, const float a_fFarPlane )
-{
-   const glm::mat4 v4View = glm::lookAt( m_v3Position, m_v3Position + m_v3Direction, k_v3UpDirection );
-   const glm::mat4 v4Proj = glm::perspective( glm::radians( a_fFovAngle ), static_cast<float>( m_iWidth ) / m_iHeight, a_fNearPlane, a_fFarPlane );
-   m_m4Camera = MK::Math::RemapForOpenGL( v4Proj ) * v4View;
-}
-
-void Camera::Inputs( GLFWwindow * const a_pWindow )
-{
-   if( glfwGetKey( a_pWindow, GLFW_KEY_W ) == GLFW_PRESS )
+   Camera::Camera( const glm::ivec2 a_v2Resolution, const glm::vec3 a_v3Position )
+      : m_v3Position{ a_v3Position }
+      , m_v3StartPosition{ a_v3Position }
+      , m_v2Resolution{ a_v2Resolution }
    {
-      m_v3Position += m_fSpeed * m_v3Direction;
-   }
-   if( glfwGetKey( a_pWindow, GLFW_KEY_A ) == GLFW_PRESS )
-   {
-      m_v3Position += m_fSpeed * -glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) );
-   }
-   if( glfwGetKey( a_pWindow, GLFW_KEY_S ) == GLFW_PRESS )
-   {
-      m_v3Position += m_fSpeed * -m_v3Direction;
-   }
-   if( glfwGetKey( a_pWindow, GLFW_KEY_D ) == GLFW_PRESS )
-   {
-      m_v3Position += m_fSpeed * glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) );;
+      this->Subscribe<EventMouseScrolled>( &Camera::OnMouseScrolled );
+      this->Subscribe<EventButtonPressed>( &Camera::OnButtonPressed );
    }
 
-   if( glfwGetKey( a_pWindow, GLFW_KEY_SPACE ) == GLFW_PRESS )
+   void Camera::Update( const float dt )
    {
-      m_v3Position += m_fSpeed * k_v3UpDirection;
-   }
-   else if( glfwGetKey( a_pWindow, GLFW_KEY_LEFT_CONTROL ) == GLFW_PRESS )
-   {
-      m_v3Position += m_fSpeed * -k_v3UpDirection;
-   }
+      this->Move( dt );
 
-   if( glfwGetKey( a_pWindow, GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS )
-   {
-      m_fSpeed = 0.05;
-   }
-   else if( glfwGetKey( a_pWindow, GLFW_KEY_LEFT_SHIFT ) == GLFW_RELEASE )
-   {
-      m_fSpeed = 0.01;
+      if( Mouse().IsButtonDown( EMouseButton::LEFT ) )
+         this->Rotate( Mouse().Delta() );
    }
 
-   if( glfwGetMouseButton( a_pWindow, GLFW_MOUSE_BUTTON_LEFT ) == GLFW_PRESS )
+   void Camera::Matrix( const Shader & a_Shader, const std::string_view a_sUniformName )
    {
-      glfwSetInputMode( a_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN );
+      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniformName.data() ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
+   }
 
-      if( m_bFirstClick )
-      {
-         glfwSetCursorPos( a_pWindow, m_iWidth / 2.f, m_iHeight / 2.f );
-         m_bFirstClick = false;
-      }
+   void Camera::UpdateMatrix( const float a_fFov, const float a_fNearPlane, const float a_fFarPlane )
+   {
+      const glm::mat4 v4View = glm::lookAt( m_v3Position, m_v3Position + m_v3Direction, k_v3UpDirection );
+      const glm::mat4 v4Proj = glm::perspective( glm::radians( a_fFov ), static_cast<float>( m_v2Resolution.x ) / m_v2Resolution.y, a_fNearPlane, a_fFarPlane );
+      m_m4Camera = MK::Math::RemapForOpenGL( v4Proj ) * v4View;
+   }
 
-      glm::vec<2, double, glm::packed_highp> v2MousePosition;
-      glfwGetCursorPos( a_pWindow, &v2MousePosition.x, &v2MousePosition.y );
+   void Camera::Move( const float dt )
+   {
+      const glm::vec3 v3Side = glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) );
 
-      const glm::vec2 v2Rotation{
-            m_fSensitivity * ( static_cast<float>( v2MousePosition.y ) - m_iHeight / 2.f ) / m_iHeight
-         ,  m_fSensitivity * ( static_cast<float>( v2MousePosition.x ) - m_iHeight / 2.f ) / m_iHeight
-      };
+      glm::vec3 v3Input{};
+      if( Keyboard().IsButtonDown( EButton::W ) )            v3Input += m_v3Direction;
+      if( Keyboard().IsButtonDown( EButton::S ) )            v3Input -= m_v3Direction;
+      if( Keyboard().IsButtonDown( EButton::A ) )            v3Input -= v3Side;
+      if( Keyboard().IsButtonDown( EButton::D ) )            v3Input += v3Side;
+      if( Keyboard().IsButtonDown( EButton::SPACE ) )        v3Input += k_v3UpDirection;
+      if( Keyboard().IsButtonDown( EButton::LEFT_CONTROL ) ) v3Input -= k_v3UpDirection;
 
-      const glm::vec3 v3NewDirection = glm::rotate( m_v3Direction, glm::radians( v2Rotation.x ), glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) ) );
+      if( v3Input == glm::vec3{ 0.f } )
+         return;
+
+      const float fSpeed = Keyboard().IsButtonDown( EButton::LEFT_SHIFT )
+         ? m_fSpeed * k_fSprintMultiplier
+         : m_fSpeed;
+
+      m_v3Position += glm::normalize( v3Input ) * fSpeed * dt;
+   }
+
+   void Camera::Rotate( const glm::vec2 a_v2MouseDelta )
+   {
+      const float fYaw = m_fSensitivity * a_v2MouseDelta.x;
+      const float fPitch = m_fSensitivity * a_v2MouseDelta.y;
+
+      const glm::vec3 v3Side = glm::normalize( glm::cross( k_v3UpDirection, m_v3Direction ) );
+      const glm::vec3 v3NewDirection = glm::rotate( m_v3Direction, glm::radians( fPitch ), v3Side );
+
       if( glm::angle( v3NewDirection, k_v3UpDirection ) > glm::radians( 5.f ) and glm::angle( v3NewDirection, -k_v3UpDirection ) > glm::radians( 5.f ) )
-      {
          m_v3Direction = v3NewDirection;
-      }
-      m_v3Direction = glm::rotate( m_v3Direction, glm::radians( v2Rotation.y ), k_v3UpDirection );
-      glfwSetCursorPos( a_pWindow, m_iWidth / 2.f, m_iHeight / 2.f );
-   }
-   else if( glfwGetMouseButton( a_pWindow, GLFW_MOUSE_BUTTON_LEFT ) == GLFW_RELEASE )
-   {
-      glfwSetInputMode( a_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN );
-      m_bFirstClick = true;
-   }
-}
 
-glm::vec3 Camera::GetPosition() const
-{
-    return m_v3Position;
+      m_v3Direction = glm::rotate( m_v3Direction, glm::radians( fYaw ), k_v3UpDirection );
+   }
+
+   void Camera::OnMouseScrolled( const EventMouseScrolled & a_Event )
+   {
+      m_fSpeed = std::clamp( m_fSpeed * std::pow( 1.2f, a_Event.v2Offset.y ), 0.1f, 50.f );
+   }
+
+   void Camera::OnButtonPressed( const EventButtonPressed & a_Event )
+   {
+      switch( a_Event.eCode )
+      {
+      case EButton::R: // reset camera
+      {
+         m_v3Position = m_v3StartPosition;
+         m_v3Direction = glm::vec3( 0.f, 0.f, -1.f );
+         break;
+      }
+      }
+   }
 }

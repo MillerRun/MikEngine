@@ -1,28 +1,41 @@
 #pragma once
 
-#include <Utils/Math.hpp>
+#include "Utils/Math.hpp"
+#include "Events/Input/InputListener.hpp"
+#include <string_view>
 
-struct GLFWwindow;
 class Shader;
 
-class Camera
+namespace MK
 {
-public:
-   explicit Camera( const int a_iWidth, const int a_iHeight, glm::vec3 a_v3Position );
+   class Camera final: public MK::Event::InputListener
+   {
+   public:
+      explicit Camera( const glm::ivec2 a_v2Resolution, const glm::vec3 a_v3Position );
 
-   void Update( const float dt );
-   void Matrix( const Shader &a_Shader, const char *const a_sUniform );
-   void UpdateMatrix( const float a_fFovAngle, const float a_fNearPlane, const float a_fFarPlane );
-   void Inputs( GLFWwindow *a_pWindow );
-   [[nodiscard]] glm::vec3 GetPosition() const;
+      void Update( const float dt );
+      void Matrix( const Shader &a_Shader, const std::string_view a_sUniformName );
+      void UpdateMatrix( const float a_fFov, const float a_fNearPlane, const float a_fFarPlane );
 
-private:
-   glm::vec3 m_v3Position;
-   glm::vec3 m_v3Direction = glm::vec3( 0.f, 0.f, -1.f );
-   glm::mat4 m_m4Camera = glm::mat4( 1.f );
-   int m_iWidth = 0;
-   int m_iHeight = 0;
-   float m_fSpeed = 0.01f;
-   float m_fSensitivity = 100.f;
-   bool m_bFirstClick = false;
-};
+      glm::vec3 GetPosition() const
+      {
+         return m_v3Position;
+      }
+
+   private:
+      void Move( const float dt );
+      void Rotate( const glm::vec2 a_v2MouseDelta );
+
+      void OnMouseScrolled( const EventMouseScrolled &a_Event );
+      void OnButtonPressed( const EventButtonPressed &a_Event );
+
+   private:
+      glm::vec3 m_v3Position{};
+      glm::vec3 m_v3StartPosition{};
+      glm::vec3 m_v3Direction = glm::vec3( 0.f, 0.f, -1.f );
+      glm::mat4 m_m4Camera = glm::mat4( 1.f );
+      glm::ivec2 m_v2Resolution{};
+      float m_fSpeed = 2.f;
+      float m_fSensitivity = 0.125f;
+   };
+}
