@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Utils/Assert.hpp>
+#include "Utils/Assert.hpp"
 
 // GLCHECK - checks for gl errors
 //
@@ -29,3 +29,8 @@
       }                                                                                                 \
    } while( false )
 #endif // GLCHECK
+
+namespace MK::Render
+{
+   using Handle = GLuint;
+}
