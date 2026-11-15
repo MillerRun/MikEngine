@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Events/Input/InputListener.hpp>
-#include <glm/ext/vector_int2.hpp>
+#include "Events/Input/InputListener.hpp"
+#include "Utils/Math.hpp"
 
 struct GLFWwindow;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MouseTypes.hpp"
-#include <glm/ext/vector_float2.hpp>
+#include "Utils/Math.hpp"
 
 struct EventMousePressed
 {

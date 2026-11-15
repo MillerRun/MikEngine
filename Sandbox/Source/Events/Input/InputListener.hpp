@@ -3,7 +3,8 @@
 #include "Events/IEventable.hpp"
 #include "Events/Input/ButtonEvents.hpp"
 #include "Events/Input/MouseEvents.hpp"
-#include <glm/ext/vector_float2.hpp>
+#include "Utils/Math.hpp"
+
 #include <array>
 #include <utility>
 
