@@ -34,7 +34,7 @@ namespace MK
       glm::vec3 m_v3Direction = glm::vec3( 0.f, 0.f, -1.f );
       glm::mat4 m_m4Camera = glm::mat4( 1.f );
       glm::ivec2 m_v2Resolution{};
-      float m_fSpeed = 2.f;
+      float m_fSpeed = 1.f;
       float m_fSensitivity = 0.125f;
    };
 }

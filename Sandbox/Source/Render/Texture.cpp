@@ -2,6 +2,7 @@
 
 #include "Common.hpp"
 #include "Shader.hpp"
+#include "Utils/File.hpp"
 
 #include <string>
 #include <stb/stb_image.h>
@@ -10,7 +11,7 @@ Texture::Texture( const std::string_view a_sImageName, const EType a_eType, cons
    : m_eType( a_eType )
    , m_iUnit( a_eSlot )
 {
-   const std::string sFullPath = "../Resources/" + std::string( a_sImageName );
+   const std::string sFullPath = MK::File::GetDefaultPath() + std::string{ a_sImageName };
    int iImageWidth, iImageHeigth, iColorChannels;
    stbi_set_flip_vertically_on_load( true );
    auto pBytes = stbi_load( sFullPath.c_str(), &iImageWidth, &iImageHeigth, &iColorChannels, STBI_default );

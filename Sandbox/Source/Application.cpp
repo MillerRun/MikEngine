@@ -17,7 +17,6 @@ namespace MK
   {
     MK::File::SetDefaultPath( "../Resources/" );
 
-    gladLoadGL();
     const auto v2ScreenSize = m_hWindow.Size();
     GLCHECK( glViewport( 0, 0, v2ScreenSize.x, v2ScreenSize.y ) );
   }

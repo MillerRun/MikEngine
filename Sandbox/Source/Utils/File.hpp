@@ -27,6 +27,9 @@ namespace MK::File
    ///
    void SetDefaultPath( const std::string_view a_sPath );
 
+   [[nodiscard]]
+   auto GetDefaultPath() noexcept -> std::string;
+
    /// <summary> Try read a file with a given path </summary>
    /// <param name="a_sFilePath"> relative file path </param>
    /// <returns> std::expected with either std::string of file's content or EErrorCode value </returns>

@@ -18,6 +18,11 @@ namespace MK::File
       g_sDefaultPath = a_sPath;
    }
 
+   auto GetDefaultPath() noexcept -> std::string
+   {
+      return g_sDefaultPath.string();
+   }
+
    std::expected<std::string, EErrorCode> GetFileContent( const std::string_view a_sFilePath )
    {
       if( g_sDefaultPath.empty() )

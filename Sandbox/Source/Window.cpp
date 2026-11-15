@@ -1,11 +1,12 @@
 #include "Window.hpp"
 
-#include <format>
-
 #include "Events/Input/ButtonEvents.hpp"
 #include "Events/Input/MouseEvents.hpp"
-#include "Utils/Assert.hpp"
+
+#include <glad/glad.h>
 #include <glfw/glfw3.h>
+
+#include <format>
 
 namespace
 {
@@ -164,7 +165,11 @@ namespace MK
    Window::Window()
       : m_dLastFrame( glfwGetTime() )
    {
-      glfwInit();
+      if( glfwInit() != GLFW_TRUE )
+      {
+         throw std::runtime_error( "Failed to initialize glfw" );
+      }
+
       glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
       glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
       glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
@@ -176,6 +181,13 @@ namespace MK
          throw std::runtime_error( std::format( "Failed to create window of size {}x{}", k_iWindowWidth, k_iWindowHeight ) );
       }
       glfwMakeContextCurrent( m_pWindow );
+
+      if( gladLoadGL() == 0 )
+      {
+         glfwTerminate();
+         throw std::runtime_error( "Failed to initialize glad" );
+      }
+
       glfwSetWindowUserPointer( m_pWindow, this );
 
       glfwSetKeyCallback( m_pWindow, []( GLFWwindow *const a_pWindow, const int a_iKey, const int a_iScanCode, const int a_iAction, const int a_iMods )
