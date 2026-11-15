@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Utils/Assert.hpp"
+#include <glad/glad.h>
 
 // GLCHECK - checks for gl errors
 //
 #ifdef NDEBUG
 #  define GLCHECK( call ) call
 #else
-#  include <glad/glad.h>
 #  define GLCHECK( call )                                                                               \
    do                                                                                                   \
    {                                                                                                    \

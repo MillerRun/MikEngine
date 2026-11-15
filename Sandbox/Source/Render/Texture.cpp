@@ -37,7 +37,7 @@ Texture::Texture( const std::string_view a_sImageName, const EType a_eType, cons
 
 void Texture::TextureUnit( Shader& a_Shader, const char* a_sUniformName, const GLuint a_iUnit )
 {
-   GLuint uTex = glGetUniformLocation( a_Shader.GetID(), a_sUniformName );
+   GLuint uTex = glGetUniformLocation( a_Shader.Get(), a_sUniformName );
    a_Shader.Activate();
    GLCHECK( glUniform1i( uTex, a_iUnit ) );
 }

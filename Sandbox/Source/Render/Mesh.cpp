@@ -45,7 +45,7 @@ void Mesh::Draw( Shader &a_Shader, MK::Camera &a_Camera )
       m_aTextures[i].TextureUnit( a_Shader, sUniformName.c_str(), static_cast<GLuint>( i ) );
       m_aTextures[i].Bind();
    }
-   GLCHECK( glUniform3f( glGetUniformLocation( a_Shader.GetID(), "u_v3CameraPosition" ), a_Camera.GetPosition().x, a_Camera.GetPosition().y, a_Camera.GetPosition().z ) );
+   GLCHECK( glUniform3f( glGetUniformLocation( a_Shader.Get(), "u_v3CameraPosition" ), a_Camera.GetPosition().x, a_Camera.GetPosition().y, a_Camera.GetPosition().z ) );
    a_Camera.Matrix( a_Shader, "u_m4Camera" );
    GLCHECK( glDrawElements( GL_TRIANGLES, static_cast<GLsizei>( m_aIndices.size() ), GL_UNSIGNED_INT, 0 ) );
 }

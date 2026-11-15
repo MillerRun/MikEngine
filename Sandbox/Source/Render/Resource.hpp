@@ -4,7 +4,7 @@
 
 namespace MK::Render
 {
-   template<auto Deleter>
+   template<auto TDeleter>
    class Resource
    {
    public:
@@ -23,24 +23,24 @@ namespace MK::Render
       {
       }
 
-      Resource &operator=( Resource &&a_Other ) noexcept( noexcept( Deleter ) )
+      Resource &operator=( Resource &&a_Other ) noexcept
       {
          if( this != std::addressof( a_Other ) )
          {
             if( m_Handle )
             {
-               Deleter( m_Handle );
+               TDeleter( m_Handle );
             }
             m_Handle = std::exchange( a_Other.m_Handle, Handle{} );
          }
          return *this;
       }
 
-      ~Resource() noexcept noexcept( noexcept( Deleter ) )
+      ~Resource() noexcept
       {
          if( m_Handle )
          {
-            Deleter( m_Handle );
+            TDeleter( m_Handle );
          }
       }
 
@@ -49,7 +49,7 @@ namespace MK::Render
          return m_Handle;
       }
 
-   private:
+   protected:
       Handle m_Handle{};
    };
 }

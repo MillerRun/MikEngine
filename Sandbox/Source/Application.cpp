@@ -98,13 +98,13 @@ namespace MK
       m4PyramidModel = glm::translate( m4PyramidModel, v4PyramidPosition );
 
       lightShader.Activate();
-      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( lightShader.GetID(), "u_m4Model" ), 1, GL_FALSE, glm::value_ptr( m4LightModel ) ) );
-      GLCHECK( glUniform4f( glGetUniformLocation( lightShader.GetID(), "u_v4LightColor" ), v4LightColor.x, v4LightColor.y, v4LightColor.z, v4LightColor.w ) );
+      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( lightShader.Get(), "u_m4Model" ), 1, GL_FALSE, glm::value_ptr( m4LightModel ) ) );
+      GLCHECK( glUniform4f( glGetUniformLocation( lightShader.Get(), "u_v4LightColor" ), v4LightColor.x, v4LightColor.y, v4LightColor.z, v4LightColor.w ) );
 
       shader.Activate();
-      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( shader.GetID(), "u_m4Model" ), 1, GL_FALSE, glm::value_ptr( m4PyramidModel ) ) );
-      GLCHECK( glUniform4f( glGetUniformLocation( shader.GetID(), "u_v4LightColor" ), v4LightColor.x, v4LightColor.y, v4LightColor.z, v4LightColor.w ) );
-      GLCHECK( glUniform3f( glGetUniformLocation( shader.GetID(), "u_v3LightPosition" ), v4LightPosition.x, v4LightPosition.y, v4LightPosition.z ) );
+      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( shader.Get(), "u_m4Model" ), 1, GL_FALSE, glm::value_ptr( m4PyramidModel ) ) );
+      GLCHECK( glUniform4f( glGetUniformLocation( shader.Get(), "u_v4LightColor" ), v4LightColor.x, v4LightColor.y, v4LightColor.z, v4LightColor.w ) );
+      GLCHECK( glUniform3f( glGetUniformLocation( shader.Get(), "u_v3LightPosition" ), v4LightPosition.x, v4LightPosition.y, v4LightPosition.z ) );
 
       GLCHECK( glEnable( GL_DEPTH_TEST ) );
 
@@ -123,9 +123,6 @@ namespace MK
 
          m_hWindow.SwapBuffers();
       }
-
-      shader.Deactivate();
-      lightShader.Deactivate();
    }
 
    void Application::Update( const float dt )
