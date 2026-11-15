@@ -19,6 +19,7 @@ namespace MK
    public:
       [[nodiscard]] auto Size() const -> glm::ivec2;
       [[nodiscard]] auto ShouldClose() const -> bool;
+      [[nodiscard]] auto ComputeDeltaTime() -> float;
       void SwapBuffers();
       void PollEvents();
       void Update( const float dt );
@@ -32,5 +33,6 @@ namespace MK
 
    private:
       GLFWwindow *m_pWindow = nullptr;
+      double m_dLastFrame{};
    };
 }

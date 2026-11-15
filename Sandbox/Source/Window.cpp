@@ -162,6 +162,7 @@ namespace
 namespace MK
 {
    Window::Window()
+      : m_dLastFrame( glfwGetTime() )
    {
       glfwInit();
       glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -229,6 +230,14 @@ namespace MK
       return glfwWindowShouldClose( m_pWindow );
    }
 
+   auto Window::ComputeDeltaTime() -> float
+   {
+      const auto dNow = glfwGetTime();
+      const auto fDelta = static_cast<float>( dNow - m_dLastFrame );
+      m_dLastFrame = dNow;
+      return fDelta;
+   }
+
    void Window::SwapBuffers()
    {
       glfwSwapBuffers( m_pWindow );
@@ -253,10 +262,7 @@ namespace MK
    {
       const auto eButton = KeyEnumFromMacro( a_iKey );
       if( eButton == EButton::MAX_OR_UNKNOWN ) [[unlikely]]
-      {
-         MKASSERT( false, "Unknown button pressed: {}", a_iKey );
          return;
-      }
 
       if( a_iAction == GLFW_PRESS )
       {
@@ -274,10 +280,7 @@ namespace MK
    {
       const auto eButton = MouseEnumFromMacro( a_iButton );
       if( eButton == EMouseButton::MAX_OR_UNKNOWN ) [[unlikely]]
-      {
-         MKASSERT( false, "Unknown mouse button pressed: {}", a_iButton );
          return;
-      }
 
       if( a_iAction == GLFW_PRESS )
       {

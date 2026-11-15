@@ -25,7 +25,7 @@
          case GL_INVALID_FRAMEBUFFER_OPERATION: sErrorText = "GL_INVALID_FRAMEBUFFER_OPERATION"; break; \
          default: sErrorText = "unhandled case";                                                        \
          }                                                                                              \
-         MKASSERT( false, "0x{:o} - {} at {}", eError, sErrorText, #call );                             \
+         MKASSERT( false, "{:#x} - {} at {}", eError, sErrorText, #call );                             \
       }                                                                                                 \
    } while( false )
 #endif // GLCHECK

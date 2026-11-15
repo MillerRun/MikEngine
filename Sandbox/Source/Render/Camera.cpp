@@ -29,9 +29,9 @@ namespace MK
          this->Rotate( Mouse().Delta() );
    }
 
-   void Camera::Matrix( const Shader & a_Shader, const std::string_view a_sUniformName )
+   void Camera::Matrix( const Shader & a_Shader, const char* a_sUniformName )
    {
-      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniformName.data() ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
+      GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.GetID(), a_sUniformName ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
    }
 
    void Camera::UpdateMatrix( const float a_fFov, const float a_fNearPlane, const float a_fFarPlane )

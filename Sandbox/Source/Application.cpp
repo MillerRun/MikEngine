@@ -125,7 +125,8 @@ namespace MK
       floorMesh.Draw( shader, m_hCamera );
       lightMesh.Draw( lightShader, m_hCamera );
 
-      this->Update( 0.001f );
+      const float dt = m_hWindow.ComputeDeltaTime();
+      this->Update( dt );
 
       m_hWindow.SwapBuffers();
     }

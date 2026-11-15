@@ -17,7 +17,7 @@ public:
 public:
    explicit Texture( const std::string_view a_sImageName, const EType a_eType, const GLenum a_eSlot, const GLenum a_eFormat, const GLenum a_ePixelType );
 
-   void TextureUnit( Shader &a_Shader, const std::string_view a_sUniformName, const GLuint a_iUnit );
+   void TextureUnit( Shader &a_Shader, const char* a_sUniformName, const GLuint a_iUnit );
    void Bind();
    void Unbind();
    void Delete();
