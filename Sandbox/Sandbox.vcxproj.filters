@@ -132,5 +132,8 @@
     <ClInclude Include="Source\Events\Input\MouseTypes.hpp">
       <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Render\Resource.hpp">
+      <Filter>Source Files\Render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

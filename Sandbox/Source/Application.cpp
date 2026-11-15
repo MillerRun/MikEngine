@@ -110,17 +110,16 @@ namespace MK
 
       while( not m_hWindow.ShouldClose() )
       {
+         m_hWindow.PollEvents();
+
          const float dt = m_hWindow.ComputeDeltaTime();
          this->Update( dt );
-
-         m_hWindow.PollEvents();
 
          GLCHECK( glClearColor( 0.07f, 0.13f, 0.17f, 1.f ) );
          GLCHECK( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
 
          floorMesh.Draw( shader, m_hCamera );
          lightMesh.Draw( lightShader, m_hCamera );
-
 
          m_hWindow.SwapBuffers();
       }

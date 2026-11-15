@@ -113,6 +113,7 @@
     <ClInclude Include="Source\Events\Input\MouseEvents.hpp" />
     <ClInclude Include="Source\Events\Input\MouseTypes.hpp" />
     <ClInclude Include="Source\Events\Token.hpp" />
+    <ClInclude Include="Source\Render\Resource.hpp" />
     <ClInclude Include="Source\Utils\Assert.hpp" />
     <ClInclude Include="Source\Utils\File.hpp" />
     <ClInclude Include="Source\Utils\Math.hpp" />

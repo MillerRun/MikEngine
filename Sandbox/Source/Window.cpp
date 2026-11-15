@@ -163,7 +163,6 @@ namespace
 namespace MK
 {
    Window::Window()
-      : m_dLastFrame( glfwGetTime() )
    {
       if( glfwInit() != GLFW_TRUE )
       {
@@ -219,6 +218,8 @@ namespace MK
          if( auto pWindow = static_cast<MK::Window *>( glfwGetWindowUserPointer( a_pWindow ) ) ) [[likely]]
             pWindow->ScrollCallback( a_pWindow, a_dOffsetX, a_dOffsetY );
       } );
+
+      m_dLastFrame = glfwGetTime();
    }
 
    Window::~Window()

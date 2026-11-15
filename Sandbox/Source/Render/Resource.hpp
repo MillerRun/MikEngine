@@ -4,6 +4,7 @@ namespace MK
 {
    class Resource
    {
+   public:
       Resource() = default;
 
       Resource( const Resource & ) = delete;
