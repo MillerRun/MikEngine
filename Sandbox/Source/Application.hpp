@@ -2,16 +2,17 @@
 
 #include "Window.hpp"
 #include "Render/Camera.hpp"
+#include "Utils/Singleton.hpp"
 
 #define ENGINE MK::Application::Get()
 
 namespace MK
 {
-  class Application final
+  class Application final : public MK::Utils::ISingleton<Application>
   {
-  public:
-    [[nodiscard]] static auto Get() noexcept -> Application*;
+     friend class MK::Utils::ISingleton<Application>;
 
+  public:
     void Run();
     [[nodiscard]] auto GetWindow() const noexcept -> const Window&;
 

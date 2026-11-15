@@ -34,7 +34,7 @@ namespace MK::Event
    IEventable::~IEventable()
    {
       for( const Token &token : m_aSubscriptionTokens )
-         EventBus::Get().RemoveListener( token );
+         EventBus::Get()->RemoveListener( token );
    }
 
    void IEventable::Unsubscribe( const SubscriptionID a_ID )
@@ -48,12 +48,12 @@ namespace MK::Event
 
       const Token token = *itToken;
       m_aSubscriptionTokens.erase( itToken );
-      EventBus::Get().RemoveListener( token );
+      EventBus::Get()->RemoveListener( token );
    }
 
    SubscriptionID IEventable::PassCallback( const std::type_index a_EventID, std::function<void( const void * )> a_WrappedCallback )
    {
-      const Token token = EventBus::Get().AddListener( a_EventID, std::move( a_WrappedCallback ) );
+      const Token token = EventBus::Get()->AddListener( a_EventID, std::move( a_WrappedCallback ) );
       m_aSubscriptionTokens.push_back( token );
       return token.iCallbackIndex;
    }
@@ -72,11 +72,11 @@ namespace MK::Event
       } );
 
       for( const Token &token : aRemovedTokens )
-         EventBus::Get().RemoveListener( token );
+         EventBus::Get()->RemoveListener( token );
    }
 
    void IEventable::CallCallbacks( const std::type_index a_EventID, const void *a_pArguments )
    {
-      EventBus::Get().Dispatch( a_EventID, a_pArguments );
+      EventBus::Get()->Dispatch( a_EventID, a_pArguments );
    }
 }

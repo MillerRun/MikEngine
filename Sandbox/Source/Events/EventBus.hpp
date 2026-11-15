@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Token.hpp"
-#include <Utils/Singleton.hpp>
+#include "Utils/Singleton.hpp"
+
 #include <functional>
 #include <typeindex>
 #include <unordered_map>

@@ -12,12 +12,6 @@
 
 namespace MK
 {
-  auto Application::Get() noexcept -> Application*
-  {
-    static Application s_Instance{};
-    return std::addressof( s_Instance );
-  }
-
   Application::Application()
     : m_hCamera( m_hWindow.Size(), glm::vec3( 0.f, 1.f, 2.f ) )
   {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <type_traits>
+
 namespace MK::Utils
 {
    template<typename T>
@@ -10,10 +12,10 @@ namespace MK::Utils
       void operator=( const ISingleton & ) = delete;
 
    public:
-      [[nodiscard]] static T &Get()
+      [[nodiscard]] static T *Get()
       {
          static T s_Instance{};
-         return s_Instance;
+         return std::addressof( s_Instance ); // idk why, guess I just like how looks ::Get()->Method()
       }
 
    protected:
