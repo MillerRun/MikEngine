@@ -74,14 +74,14 @@ namespace MK
          Texture( "planksSpec.png", Texture::EType::SPECULAR, 1, GL_RED, GL_UNSIGNED_BYTE )
       };
 
-      Shader shader{ "default" };
+      MK::Render::Shader shader{ "default" };
       Mesh floorMesh{
          std::vector<Vertex>( aVerticies.cbegin(), aVerticies.cend() )
          , std::vector<GLuint>( aIndicies.cbegin(), aIndicies.cend() )
          , std::vector<Texture>( aTextures.cbegin(), aTextures.cend() )
       };
 
-      Shader lightShader{ "light" };
+      MK::Render::Shader lightShader{ "light" };
       Mesh lightMesh{
          std::vector<Vertex>( aLightVerticies.cbegin(), aLightVerticies.cend() )
          , std::vector<GLuint>( aLightIndicies.cbegin(), aLightIndicies.cend() )

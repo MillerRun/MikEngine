@@ -3,7 +3,11 @@
 #include <string_view>
 #include <glad/glad.h>
 
-class Shader;
+namespace MK::Render
+{
+   class Shader;
+}
+
 
 class Texture
 {
@@ -17,7 +21,7 @@ public:
 public:
    explicit Texture( const std::string_view a_sImageName, const EType a_eType, const GLenum a_eSlot, const GLenum a_eFormat, const GLenum a_ePixelType );
 
-   void TextureUnit( Shader &a_Shader, const char* a_sUniformName, const GLuint a_iUnit );
+   void TextureUnit( MK::Render::Shader &a_Shader, const char* a_sUniformName, const GLuint a_iUnit );
    void Bind();
    void Unbind();
    void Delete();

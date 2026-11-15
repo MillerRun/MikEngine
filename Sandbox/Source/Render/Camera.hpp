@@ -3,17 +3,21 @@
 #include "Utils/Math.hpp"
 #include "Events/Input/InputListener.hpp"
 
-class Shader;
 
 namespace MK
 {
+   namespace Render
+   {
+      class Shader;
+   }
+
    class Camera final: public MK::Event::InputListener
    {
    public:
       explicit Camera( const glm::ivec2 a_v2Resolution, const glm::vec3 a_v3Position );
 
       void Update( const float dt );
-      void Matrix( const Shader &a_Shader, const char* a_sUniformName );
+      void Matrix( const Render::Shader &a_Shader, const char* a_sUniformName );
       void UpdateMatrix( const float a_fFov, const float a_fNearPlane, const float a_fFarPlane );
 
       glm::vec3 GetPosition() const

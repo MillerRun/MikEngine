@@ -5,7 +5,7 @@
 namespace MK::Render
 {
    template<auto TDeleter>
-   class Resource
+   class Resource final
    {
    public:
       // deleted copying
@@ -49,7 +49,19 @@ namespace MK::Render
          return m_Handle;
       }
 
-   protected:
+   private:
       Handle m_Handle{};
    };
+}
+
+// handle helpers
+namespace MK::Render
+{
+   namespace Helper
+   {
+      void DeleteProgram( const Handle a_Handle ) noexcept;
+      void DeleteShader( const Handle a_Handle ) noexcept;
+   }
+   using ProgramHandle = Resource<&Helper::DeleteProgram>;
+   using ShaderHandle = Resource<&Helper::DeleteShader>;
 }

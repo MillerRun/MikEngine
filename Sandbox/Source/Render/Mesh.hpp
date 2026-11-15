@@ -5,10 +5,14 @@
 #include "VAO.hpp"
 #include "Texture.hpp"
 
-class Shader;
 namespace MK
 {
    class Camera;
+
+   namespace Render
+   {
+      class Shader;
+   }
 }
 
 class Mesh
@@ -16,7 +20,7 @@ class Mesh
 public:
    explicit Mesh( std::vector<Vertex> a_aVertices, std::vector<GLuint> a_aIndices, std::vector<Texture> a_aTextures );
 
-   void Draw( Shader &a_Shader, MK::Camera &a_Camera );
+   void Draw( MK::Render::Shader &a_Shader, MK::Camera &a_Camera );
 
 private:
    std::vector<Vertex> m_aVertices;

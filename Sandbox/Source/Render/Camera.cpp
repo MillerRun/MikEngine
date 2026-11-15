@@ -29,7 +29,7 @@ namespace MK
          this->Rotate( Mouse().Delta() );
    }
 
-   void Camera::Matrix( const Shader & a_Shader, const char* a_sUniformName )
+   void Camera::Matrix( const Render::Shader & a_Shader, const char* a_sUniformName )
    {
       GLCHECK( glUniformMatrix4fv( glGetUniformLocation( a_Shader.Get(), a_sUniformName ), 1, GL_FALSE, glm::value_ptr( m_m4Camera ) ) );
    }
