@@ -113,13 +113,13 @@
     <ClInclude Include="Source\Events\Input\MouseEvents.hpp" />
     <ClInclude Include="Source\Events\Input\MouseTypes.hpp" />
     <ClInclude Include="Source\Events\Token.hpp" />
+    <ClInclude Include="Source\Render\Common.hpp" />
     <ClInclude Include="Source\Render\Resource.hpp" />
     <ClInclude Include="Source\Utils\Assert.hpp" />
     <ClInclude Include="Source\Utils\File.hpp" />
     <ClInclude Include="Source\Utils\Math.hpp" />
     <ClInclude Include="Source\Utils\Singleton.hpp" />
     <ClInclude Include="Source\Window.hpp" />
-    <ClInclude Include="Source\Common.hpp" />
     <ClInclude Include="Source\Events\Input\ButtonEvents.hpp" />
     <ClInclude Include="Source\Render\Buffer.hpp" />
     <ClInclude Include="Source\Render\Camera.hpp" />

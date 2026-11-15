@@ -96,9 +96,6 @@
     <ClInclude Include="Source\Window.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Common.hpp">
-      <Filter>Source Files\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Events\Input\ButtonTypes.hpp">
       <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
       <Filter>Source Files\Events\Input</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\Resource.hpp">
+      <Filter>Source Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Common.hpp">
       <Filter>Source Files\Render</Filter>
     </ClInclude>
   </ItemGroup>
