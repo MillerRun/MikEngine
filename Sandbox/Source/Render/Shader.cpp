@@ -40,6 +40,19 @@ namespace
          DEBUGBREAK();
       }
    }
+
+   [[nodiscard]] auto MakeShader( const int a_iShaderType, const std::string_view a_sSourceCode ) -> MK::Render::ShaderHandle
+   {
+      MK::Render::ShaderHandle shader{ glCreateShader( a_iShaderType ) };
+
+      const char *sSource = a_sSourceCode.data();
+      GLCHECK( glShaderSource( shader.Get(), 1, &sSource, nullptr));
+      GLCHECK( glCompileShader( shader.Get() ) );
+
+      CheckCompileStatus( shader.Get() );
+
+      return shader;
+   }
 }
 
 namespace MK::Render
@@ -62,30 +75,30 @@ namespace MK::Render
       const auto sFragmentShaderContent = GetShaderContent( k_sFragmentShaderFileResolution );
 
       // vertex shader
-      const GLuint vs = glCreateShader( GL_VERTEX_SHADER );
-      const char *sVertexSource = sVertexShaderContent.c_str();
-      GLCHECK( glShaderSource( vs, 1, &sVertexSource, nullptr ) ); // 1 screen for the shader
-      GLCHECK( glCompileShader( vs ) );
-      CheckCompileStatus( vs );
-
+      const auto vs = MakeShader( GL_VERTEX_SHADER, sVertexShaderContent );
+      if( !vs.Get() )
+      {
+         throw std::runtime_error( "Failed to create vertex shader" );
+      }
+      
       // fragment shader
-      const GLuint fs = glCreateShader( GL_FRAGMENT_SHADER );
-      const char *sFragmentSource = sFragmentShaderContent.c_str();
-      GLCHECK( glShaderSource( fs, 1, &sFragmentSource, nullptr ) );
-      GLCHECK( glCompileShader( fs ) );
-      CheckCompileStatus( fs );
+      const auto fs = MakeShader( GL_FRAGMENT_SHADER, sFragmentShaderContent );
+      if( !fs.Get() )
+      {
+         throw std::runtime_error( "Failed to create fragment shader" );
+      }
 
       // create program
-      GLCHECK( glAttachShader( this->Get(), vs ) ); // attach vertex shader
-      GLCHECK( glAttachShader( this->Get(), fs ) ); // attach fragment shader
+      GLCHECK( glAttachShader( this->Get(), vs.Get() ) ); // attach vertex shader
+      GLCHECK( glAttachShader( this->Get(), fs.Get() ) ); // attach fragment shader
       GLCHECK( glLinkProgram( this->Get() ) ); // assemble program
       CheckLinkStatus( this->Get() );
 
       // delete shaders, because program contains them already
-      GLCHECK( glDetachShader( this->Get(), vs ) );
-      GLCHECK( glDetachShader( this->Get(), fs ) );
-      GLCHECK( glDeleteShader( vs ) );
-      GLCHECK( glDeleteShader( fs ) );
+      GLCHECK( glDetachShader( this->Get(), vs.Get() ) );
+      GLCHECK( glDetachShader( this->Get(), fs.Get() ) );
+
+      this->CacheUniforms();
    }
 
    void Shader::Activate() const
@@ -96,5 +109,32 @@ namespace MK::Render
    auto Shader::Get() const noexcept -> Handle
    {
       return m_Program.Get();
+   }
+
+   void Shader::CacheUniforms()
+   {
+      GLint iAmount{}, iMaxNameLength{};
+      GLCHECK( glGetProgramiv( this->Get(), GL_ACTIVE_UNIFORMS, &iAmount ) );
+      GLCHECK( glGetProgramiv( this->Get(), GL_ACTIVE_UNIFORM_MAX_LENGTH, &iMaxNameLength ) );
+
+      std::string sBuffer( iMaxNameLength, '\0' );
+      for( GLuint i = 0; i < static_cast<GLuint>( iAmount ); ++i )
+      {
+         GLsizei iNameLength{};
+         GLint iSize{};
+         GLenum eType{};
+
+         GLCHECK( glGetActiveUniform( this->Get(), i, iMaxNameLength, &iNameLength, &iSize, &eType, sBuffer.data() ) );
+
+         const GLint iLocation = glGetUniformLocation( this->Get(), sBuffer.c_str() );
+         if( iLocation == -1 )
+            continue;
+
+         std::string sName( sBuffer.data(), iNameLength );
+         if( sName.ends_with( "[0]" ) ) // arrays have postfixes
+            sName.resize( sName.size() - 3 );
+
+         m_mUniformCache.emplace( std::move( sName ), UniformInfo{ .iLocation = iLocation, .eType = eType, .iCount = iSize } );
+      }
    }
 }
