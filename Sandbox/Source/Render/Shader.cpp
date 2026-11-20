@@ -6,6 +6,7 @@
 
 #include <string>
 #include <print>
+#include <format>
 
 namespace
 {
@@ -16,13 +17,13 @@ namespace
    [[nodiscard]] auto CheckLinkStatus( const GLuint a_iID ) -> bool
    {
       GLint bHasLinked = 1;
-      char sInfoMessage[GL_INFO_LOG_LENGTH]{};
+      auto sInfoMessage = std::make_unique<char[]>( GL_INFO_LOG_LENGTH );
 
       GLCHECK( glGetProgramiv( a_iID, GL_LINK_STATUS, &bHasLinked ) );
       if( bHasLinked == GL_FALSE )
       {
-         GLCHECK( glGetProgramInfoLog( a_iID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
-         std::println( stderr, "{}", sInfoMessage );
+         GLCHECK( glGetProgramInfoLog( a_iID, GL_INFO_LOG_LENGTH, nullptr, sInfoMessage.get() ) );
+         std::println( stderr, "{}", sInfoMessage.get() );
          DEBUGBREAK();
       }
       return bHasLinked == GL_TRUE;
@@ -31,19 +32,19 @@ namespace
    [[nodiscard]] auto CheckCompileStatus( const GLuint a_iID ) -> bool
    {
       GLint bHasCompiled = 1;
-      char sInfoMessage[GL_INFO_LOG_LENGTH]{};
+      auto sInfoMessage = std::make_unique<char[]>( GL_INFO_LOG_LENGTH );
 
       GLCHECK( glGetShaderiv( a_iID, GL_COMPILE_STATUS, &bHasCompiled ) );
       if( bHasCompiled == GL_FALSE )
       {
-         GLCHECK( glGetShaderInfoLog( a_iID, sizeof( sInfoMessage ), nullptr, sInfoMessage ) );
-         std::println( stderr, "{}", sInfoMessage );
+         GLCHECK( glGetShaderInfoLog( a_iID, GL_INFO_LOG_LENGTH, nullptr, sInfoMessage.get() ) );
+         std::println( stderr, "{}", sInfoMessage.get() );
          DEBUGBREAK();
       }
       return bHasCompiled == GL_TRUE;
    }
 
-   [[nodiscard]] auto MakeShader( const int a_iShaderType, const std::string_view a_sSourceCode ) -> MK::Render::ShaderHandle
+   [[nodiscard]] auto MakeShader( const GLenum a_iShaderType, const std::string_view a_sSourceCode ) -> MK::Render::ShaderHandle
    {
       MK::Render::ShaderHandle shader{ glCreateShader( a_iShaderType ) };
 
@@ -102,7 +103,6 @@ namespace MK::Render
          throw std::runtime_error( std::format( "{}: Failed to link shader program", a_sShaderName ) );
       }
 
-      // delete shaders, because program contains them already
       GLCHECK( glDetachShader( this->Get(), vs.Get() ) );
       GLCHECK( glDetachShader( this->Get(), fs.Get() ) );
 
